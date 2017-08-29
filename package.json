@@ -1,0 +1,28 @@
+{
+  "name": "talentos-api",
+  "version": "1.0.0",
+  "description": "programa de talentos governo ES",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thalles-ab/unysistem-restapi.git"
+  },
+  "keywords": [
+    "talentos",
+    "es",
+    "governo",
+    "node",
+    "api",
+    "espirito",
+    "santo"
+  ],
+  "author": "unisystem",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thalles-ab/unysistem-restapi/issues"
+  },
+  "homepage": "https://github.com/thalles-ab/unysistem-restapi#readme"
+}
