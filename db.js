@@ -1,9 +1,34 @@
-import mongoose from "mongoose";
-const config = require("./libs/config");
+import fs from "fs";
+import path from "path";
+import Sequelize from "sequelize";
+let	db = null;
 
-mongoose.createConnection(config.mongourl, config.mongoconfig).then(
-    () => { console.log('conectado mongodb - talentoses'); },
-    err => { throw err; }
-);
-let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+module.exports = app => {
+    var sequelize = {};
+    if	(!db) {
+        const config = app.libs.config;
+        sequelize = new Sequelize(
+            config.database,
+            config.username,
+            config.password,
+            config.params,
+        );
+    }
+    db	=	{
+        sequelize,
+        Sequelize,
+        models:	{}
+    };
+    const	dir	=	path.join(__dirname,	"models");
+    fs.readdirSync(dir).forEach(file	=>	{
+        const	modelDir	=	path.join(dir,	file);
+        const	model	=	sequelize.import(modelDir);
+        db.models[model.name]	=	model;
+    });
+    Object.keys(db.models).forEach(key	=>	{
+        if(db.models[key].associate !== undefined) {
+            db.models[key].associate(db.models);
+        }
+    });
+    return	db;
+};

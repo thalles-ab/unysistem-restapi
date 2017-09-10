@@ -1,5 +1,12 @@
 module.exports	= app => {
-    app.listen(app.get("port"), () => {
-        console.log(`Talentos API - porta ${app.get("port")}`);
+    app.db.sequelize.sync({force:true})
+        .then(() => {
+            console.log('banco atualizado');
+        }).catch(error => {
+            console.log('error db', error);
+        }).done(() => {
+            app.listen(app.get("port"), () => {
+            console.log(`Talentos API - porta ${app.get("port")}`);
+        });
     });
 };
