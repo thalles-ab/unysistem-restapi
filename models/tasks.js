@@ -18,11 +18,11 @@ module.exports	=	(sequelize,	DataType)	=>	{
             defaultValue:	false
         }
     });
-    
-    Tasks.associate = function (models) {
+
+    Tasks.associate =  (models) => {
 
     };
-    
+
     return	Tasks;
 };
 
