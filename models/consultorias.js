@@ -29,9 +29,6 @@ module.exports	=	(sequelize,	DataType)	=>	{
 
     Consultorias.associate =	(models) => {
         Consultorias.belongsTo(models.Servidores);
-    };
-	
-	Consultorias.associate =	(models) => {
         Consultorias.belongsTo(models.Instituicoes);
     };
 

@@ -29,6 +29,7 @@
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "body-parser": "^1.17.2",
+    "consign": "^0.1.6",
     "cors": "^2.8.4",
     "express": "^4.15.4",
     "jwt-simple": "^0.5.1",

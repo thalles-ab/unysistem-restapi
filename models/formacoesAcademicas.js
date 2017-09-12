@@ -27,9 +27,6 @@ module.exports	=	(sequelize,	DataType)	=>	{
 
     FormacoesAcademicas.associate =	(models) => {
         FormacoesAcademicas.belongsTo(models.Servidores);
-    };
-	
-	FormacoesAcademicas.associate =	(models) => {
         FormacoesAcademicas.belongsTo(models.InstituicoesAcademicas);
     };
 

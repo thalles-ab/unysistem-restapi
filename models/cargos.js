@@ -26,11 +26,9 @@ module.exports	=	(sequelize,	DataType)	=>	{
 
     Cargos.associate = (models)	=>	{
         Cargos.belongsTo(models.Servidores);
-    };
-	
-	Cargos.associate = (models)	=>	{
         Cargos.belongsTo(models.Instituicoes);
     };
+        
 
     return	Cargos;
 };

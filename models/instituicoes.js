@@ -15,7 +15,7 @@ module.exports	=	(sequelize,	DataType)	=>	{
     });
 
     Instituicoes.associate = (models)	=>	{
-        Instituicoes.belongsTo(models.EndrecosInstituicoes);
+        Instituicoes.belongsTo(models.EnderecosInstituicoes);
     };
 
     return	Instituicoes;
