@@ -1,5 +1,5 @@
 module.exports	=	(sequelize,	DataType)	=>	{
-    const	Cargos	=	sequelize.define("Cargos",	{
+    const	Consultorias	=	sequelize.define("Consultorias",	{
         id:	{
             type:	DataType.INTEGER,
             primaryKey:	true,
@@ -21,16 +21,19 @@ module.exports	=	(sequelize,	DataType)	=>	{
             type:	DataType.DATE,
             allowNull:	false,
             defaultValue:	false
+        },
+        local:	{
+            type:	DataType.STRING
         }
     });
 
-    Cargos.associate = (models)	=>	{
-        Cargos.belongsTo(models.Servidores);
+    Consultorias.associate =	(models) => {
+        Consultorias.belongsTo(models.Servidores);
     };
 	
-	Cargos.associate = (models)	=>	{
-        Cargos.belongsTo(models.Instituicoes);
+	Consultorias.associate =	(models) => {
+        Consultorias.belongsTo(models.Instituicoes);
     };
 
-    return	Cargos;
+    return	Consultorias;
 };
