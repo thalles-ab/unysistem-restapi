@@ -5,8 +5,22 @@ module.exports	=	(sequelize,	DataType)	=>	{
             primaryKey:	true,
             autoIncrement:	true
         },
-        nome:	{
+        entidade:	{
             type:	DataType.STRING,
+            allowNull:	false,
+            validate:	{
+                notEmpty:	true
+            }
+        },
+        modalidade:	{
+            type:	DataType.STRING,
+            allowNull:	false,
+            validate:	{
+                notEmpty:	true
+            }
+        },
+        cargaHoraria:	{
+            type:	DataType.INTEGER,
             allowNull:	false,
             validate:	{
                 notEmpty:	true
