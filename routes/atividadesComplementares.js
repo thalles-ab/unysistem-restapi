@@ -16,6 +16,16 @@ module.exports = app => {
             });
         });
         app.route("/atividades-complementares/:id")
+        .get((req, res) => {
+            AtividadesComplementares.findOne(
+                { 
+                    where: {id: req.params.id} 
+                }
+            ).then(result => res.json(result))
+            .catch(error => {
+                res.status(412).json({msg: error.message});
+            });
+        })
         .put((req, res) => {
             AtividadesComplementares.update(
                  {
