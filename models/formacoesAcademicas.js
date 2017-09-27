@@ -20,7 +20,7 @@ module.exports	=	(sequelize,	DataType)	=>	{
             defaultValue:	false
         },
         nivel:	{
-            type:	DataType.STRING,
+            type:	DataType.INTEGER,
             allowNull:	false
         }
     });
