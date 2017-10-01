@@ -2,12 +2,12 @@ module.exports = app => {
     const AtividadesComplementares = app.db.models.AtividadesComplementares;
 
     app.route("/atividades-complementares")
-        .get((req, res) => {
+        /*.get((req, res) => {
             AtividadesComplementares.findAll().then(result => res.json(result))
             .catch(error => {
                 res.status(412).json({msg: error.message});
             });
-        })
+        })*/
         .post((req, res) => {
             AtividadesComplementares.create(req.body)
             .then(result => res.json(result))
@@ -15,6 +15,7 @@ module.exports = app => {
                 res.status(412).json({msg: error.message});
             });
         });
+        
         app.route("/atividades-complementares/:id")
         .get((req, res) => {
             AtividadesComplementares.findOne(
@@ -50,5 +51,19 @@ module.exports = app => {
                 .catch(error => {
                     res.status(412).json({msg: error.message});
             });
+        });
+        
+        app.route("/servidores/:idServidor/atividades-complementares")
+        .get((req, res) => {
+            AtividadesComplementares.findAll({
+                    where: {
+                        servidore_id: req.params.idServidor
+                    }
+                }).then(result => res.json(result))
+                .catch(error => {
+                    res.status(412).json({
+                        msg: error.message
+                    });
+                });
         });
 };
