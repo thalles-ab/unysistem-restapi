@@ -2,12 +2,6 @@ module.exports = app => {
     const Servidores = app.db.models.Servidores;
 
     app.route("/servidores")
-        .get((req, res) => {
-            Servidores.findAll().then(result => res.json(result))
-            .catch(error => {
-                res.status(412).json({msg: error.message});
-            });
-        })
         .post((req, res) => {
             Servidores.create(req.body)
             .then(result => res.json(result))
@@ -53,4 +47,34 @@ module.exports = app => {
                     res.status(412).json({msg: error.message});
             });
         });
+        
+    
+        
+        app.route("/servidores/:idServidor/servidores")
+            .get((req, res) => {
+                Servidores.findAll({
+                   where: {
+                       id: req.params.idServidor
+                   } 
+                }).then(result => res.json(result))
+                .catch(error =>{
+                    res.status(412).json({
+                        msg: error.message
+                    });
+                });
+            });
+            
+        app.route("/servidores/:idServidor/servidores")
+            .get((req, res) => {
+                Servidores.findAll({
+                   where: {
+                       id: req.params.idServidor
+                   } 
+                }).then(result => res.json(result))
+                .catch(error =>{
+                    res.status(412).json({
+                        msg: error.message
+                    });
+                });
+            });
 };
