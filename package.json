@@ -4,7 +4,8 @@
   "description": "programa de talentos governo ES",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node index.js"
+    "babel-node": "babel-node --presets=es2015",
+    "start": "nodemon --exec npm run babel-node -- ./index.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "consign": "^0.1.6",
     "cors": "^2.8.4",
     "express": "^4.15.4",
+    "jquery": "^3.2.1",
     "jwt-simple": "^0.5.1",
     "morgan": "^1.8.2",
     "mysql2": "^1.4.2",
@@ -39,5 +41,8 @@
     "passport-jwt": "^3.0.0",
     "sequelize": "^4.8.2",
     "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
   }
 }

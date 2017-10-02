@@ -5,6 +5,13 @@ module.exports	=	(sequelize,	DataType)	=>	{
             primaryKey:	true,
             autoIncrement:	true
         },
+        nome:	{
+            type:	DataType.STRING,
+            allowNull:	false,
+            validate:	{
+                notEmpty:	true
+            }
+        },
         dataInicio:	{
             type:	DataType.DATE,
             allowNull:	false,
@@ -18,10 +25,9 @@ module.exports	=	(sequelize,	DataType)	=>	{
     });
 
     Cargos.associate = (models)	=>	{
-        Cargos.belongsTo(models.Funcoes);
-        Cargos.belongsTo(models.Setor);
+        Cargos.belongsTo(models.Servidores);
     };
-        
+
 
     return	Cargos;
 };

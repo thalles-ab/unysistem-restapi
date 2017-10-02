@@ -15,4 +15,4 @@ import bodyParser from "body-parser";
         delete req.body.id;
         next();
       });
- }
+ };
