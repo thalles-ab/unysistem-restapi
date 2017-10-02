@@ -63,18 +63,4 @@ module.exports = app => {
                     });
                 });
             });
-            
-        app.route("/servidores/:idServidor/servidores")
-            .get((req, res) => {
-                Servidores.findAll({
-                   where: {
-                       id: req.params.idServidor
-                   } 
-                }).then(result => res.json(result))
-                .catch(error =>{
-                    res.status(412).json({
-                        msg: error.message
-                    });
-                });
-            });
 };
