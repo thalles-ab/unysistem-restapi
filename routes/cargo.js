@@ -28,7 +28,8 @@ module.exports = app => {
          .put((req, res) => {
              Cargo.update(
                   {
-                     nome: req.body.curso,
+                     funcao: req.body.funcao,
+                     setor: req.body.setor,
                      dataInicio: req.body.dataInicio,
                      dataFim: req.body.dataFim
                   },
