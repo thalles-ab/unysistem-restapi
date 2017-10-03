@@ -58,7 +58,11 @@ module.exports = app => {
         app.route("/servidores/nome/:nome")
         .get((req, res) => {
             Servidores.findAll({
-                where: {nome: req.params.nome}
+                where: {nome: {
+                        $like : "%"+req.params.nome+"%"
+                    }
+                    
+                }
             })
             .then(result => res.json(result))
             .catch(error => {
