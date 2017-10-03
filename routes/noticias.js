@@ -10,7 +10,7 @@ let info = {
     path : "/Noticias",
     tagArea : "article.projection-page > ul[class!=\"pager\"]",
     tagItem : "li",
-    tagImg : "img",
+    tagImg : "article > div:first > div:first > a > img",
     tagBody: "article > div:first > div:last > p",
     tagHeader: "header > div.row > div",
     tagDate : "div",
@@ -57,6 +57,9 @@ module.exports = app =>{
                         content.find('a[href="'+link.attr('href')+'"]').remove();
 
                         noticia.conteudo = content.text();
+
+                        // imagem thumb
+                        noticia.imgSrc = info.domain + $(val).find(info.tagImg).attr('src');
 
                         noticias.push(noticia);
                     });
