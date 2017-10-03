@@ -28,6 +28,7 @@ module.exports = app => {
          .put((req, res) => {
              Cargo.update(
                   {
+                      nome: req.body.nome,
                      funcao: req.body.funcao,
                      setor: req.body.setor,
                      dataInicio: req.body.dataInicio,
@@ -49,4 +50,19 @@ module.exports = app => {
                      res.status(412).json({msg: error.message});
              });
          });
+         
+             app.route("/servidores/:idServidor/cargo")
+        .get((req, res) => {
+            Cargo.findAll({
+                    where: {
+                        servidore_id: req.params.idServidor
+                    }//,
+                    //include : [{ model : app.db.models.Cargos, attributes: ['id', 'nome'] }]
+                }).then(result => res.json(result))
+                .catch(error => {
+                    res.status(412).json({
+                        msg: error.message
+                    });
+                });
+        });
 };

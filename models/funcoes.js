@@ -24,9 +24,9 @@ module.exports	=	(sequelize,	DataType)	=>	{
         },
         descricao:	{
             type:	DataType.STRING,
-            allowNull:	false,
+            allowNull:	true,
             validate:	{
-                notEmpty:	true
+                notEmpty:	false
             }
         }
     });
