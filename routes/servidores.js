@@ -4,31 +4,31 @@ module.exports = app => {
     app.route("/servidores")
         .get((req, res) => {
             Servidores.findAll()
-            .then(result => res.json(result))
-            .catch(error => {
-                res.status(412).json({msg: error.message});
-            });
+                .then(result => res.json(result))
+                .catch(error => {
+                    res.status(412).json({ msg: error.message });
+                });
         })
         .post((req, res) => {
             Servidores.create(req.body)
-            .then(result => res.json(result))
-            .catch(error => {
-                res.status(412).json({msg: error.message});
-            });
+                .then(result => res.json(result))
+                .catch(error => {
+                    res.status(412).json({ msg: error.message });
+                });
         });
-        
+
     app.route("/servidores/:id")
         .get((req, res) => {
             Servidores.findOne({
-                where: {id: req.params.id}
+                where: { id: req.params.id }
             }).then(result => res.json(result))
-            .catch(error => {
-                res.status(412).json({msg: error.message});
-            });
+                .catch(error => {
+                    res.status(412).json({ msg: error.message });
+                });
         })
         .put((req, res) => {
             Servidores.update(
-                 {
+                {
                     nome: req.body.nome,
                     dataNascimento: req.body.dataNascimento,
                     sexo: req.body.sexo,
@@ -37,12 +37,12 @@ module.exports = app => {
                     estado: req.body.estado,
                     cidade: req.body.cidade,
                     nacionalidade: req.body.nacionalidade
-                 },
-                 {where: { id: req.params.id }}
+                },
+                { where: { id: req.params.id } }
             ).then(result => res.json(result))
                 .catch(error => {
-                    res.status(412).json({msg: error.message});
-            });
+                    res.status(412).json({ msg: error.message });
+                });
         })
         .delete((req, res) => {
             Servidores.destroy({
@@ -51,22 +51,17 @@ module.exports = app => {
                 }
             }).then(result => res.json(result))
                 .catch(error => {
-                    res.status(412).json({msg: error.message});
-            });
+                    res.status(412).json({ msg: error.message });
+                });
         });
-            
-        app.route("/servidores/nome/:nome")
+
+    app.route("/servidores/nome/:nome")
         .get((req, res) => {
-            Servidores.findAll({
-                where: {nome: {
-                        $like : "%"+req.params.nome+"%"
-                    }
-                    
-                }
-            })
-            .then(result => res.json(result))
-            .catch(error => {
-                res.status(412).json({msg: error.message});
-            });
+            Servidores.findOne({
+                where: { nome: req.params.nome }
+            }).then(result => res.json(result))
+                .catch(error => {
+                    res.status(412).json({ msg: error.message });
+                });
         });
 };
