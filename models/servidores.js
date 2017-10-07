@@ -5,6 +5,14 @@ module.exports	=	(sequelize,	DataType)	=>	{
             primaryKey:	true,
             autoIncrement:	true
         },
+        foto: {
+             type:	DataType.BLOB('medium'),
+            allowNull:	true,
+            get() {
+                var aux = this.getDataValue('foto');
+                return aux != null ?aux.toString() : '';
+            }
+        },
         nome:	{
             type:	DataType.STRING,
             allowNull:	false,
