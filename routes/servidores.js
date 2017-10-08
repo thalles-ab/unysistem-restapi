@@ -24,9 +24,8 @@ module.exports = app => {
                 });
         });
 
-    app.route("/servidores//:id(\\d+)/")
+    app.route("/servidores/:id(\\d+)/")
         .get((req, res) => {
-            console.log('teste');
             Servidores.findOne({
                 where: {
                     id: req.params.id
