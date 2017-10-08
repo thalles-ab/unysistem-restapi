@@ -24,8 +24,9 @@ module.exports = app => {
                 });
         });
 
-    app.route("/servidores/:id")
+    app.route("/servidores//:id(\\d+)/")
         .get((req, res) => {
+            console.log('teste');
             Servidores.findOne({
                 where: {
                     id: req.params.id
@@ -116,6 +117,13 @@ module.exports = app => {
                         msg: error.message
                     });
                 });
+        });
+        
+    app.route("/servidores/pesquisa")
+        .get((req, res) => {
+            console.log(req.query);
+            app.routes.autoSearch(Servidores, req.query)
+            .then(result => res.json(result));
         });
 
 };

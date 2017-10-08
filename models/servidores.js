@@ -10,7 +10,8 @@ module.exports	=	(sequelize,	DataType)	=>	{
             allowNull:	true,
             get() {
                 var aux = this.getDataValue('foto');
-                return aux != null ?aux.toString() : '';
+                if(aux == null) return;
+                return aux.toString();
             }
         },
         nome:	{
