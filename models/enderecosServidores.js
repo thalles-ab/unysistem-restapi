@@ -1,5 +1,5 @@
 module.exports	=	(sequelize,	DataType)	=>	{
-    const	EnderecosServidores	=	sequelize.define("EnderecosServidores",	{
+    const	EnderecoServidor = sequelize.define("EnderecoServidor",	{
         id:	{
             type:	DataType.INTEGER,
             primaryKey:	true,
@@ -41,11 +41,11 @@ module.exports	=	(sequelize,	DataType)	=>	{
                 notEmpty:	true
             }
         }
-    });
+    },{freezeTableName: true});
 
-    EnderecosServidores.associate =	(models) =>	{
-        EnderecosServidores.belongsTo(models.Servidores);
+    EnderecoServidor.associate = (models) =>	{
+        EnderecoServidor.belongsTo(models.Servidor, { as : 'servidor' });
     };
 
-    return	EnderecosServidores;
+    return	EnderecoServidor;
 };

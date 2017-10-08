@@ -1,5 +1,5 @@
 module.exports = app => {
-    const Cargo = app.db.models.Cargos;
+    const Cargo = app.db.models.Cargo;
 
     app.route("/Cargo")
     .get((req, res) => {
@@ -64,5 +64,11 @@ module.exports = app => {
                         msg: error.message
                     });
                 });
+        });
+
+        app.route("/cargos/pesquisa")
+        .get((req, res) => {
+            app.routes.autoSearch(Cargo, req.query)
+            .then(result => res.json(result));
         });
 };

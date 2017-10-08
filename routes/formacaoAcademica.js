@@ -1,5 +1,5 @@
 module.exports = app => {
-    const FormacaoAcademica = app.db.models.FormacoesAcademicas;
+    const FormacaoAcademica = app.db.models.FormacaoAcademica;
 
     app.route("/formacaoacademica")
         .post((req, res) => {

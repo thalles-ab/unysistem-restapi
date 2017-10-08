@@ -1,5 +1,5 @@
 module.exports	=	(sequelize,	DataType)	=>	{
-    const	Interesses	=	sequelize.define("Interesses",	{
+    const Interesse	=	sequelize.define("Interesse",	{
         id:	{
             type:	DataType.INTEGER,
             primaryKey:	true,
@@ -12,11 +12,11 @@ module.exports	=	(sequelize,	DataType)	=>	{
                 notEmpty:	true
             }
         }
-    });
+    },{freezeTableName: true});
 
-    Interesses.associate = (models) => {
-        Interesses.belongsTo(models.Servidores);
+    Interesse.associate = (models) => {
+        Interesse.belongsTo(models.Servidor, { as : 'servidor' });
     };
 
-    return	Interesses;
+    return	Interesse;
 };

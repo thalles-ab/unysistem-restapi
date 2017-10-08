@@ -1,5 +1,5 @@
 module.exports	=	(sequelize,	DataType)	=>	{
-    const	AtividadesComplementares	=	sequelize.define("AtividadesComplementares",	{
+    const	AtividadeComplementar	=	sequelize.define("AtividadeComplementar",	{
         id:	{
             type:	DataType.INTEGER,
             primaryKey:	true,
@@ -36,10 +36,10 @@ module.exports	=	(sequelize,	DataType)	=>	{
             allowNull:	false,
             defaultValue:	false
         }
-    });
+    },{freezeTableName: true});
 
-    AtividadesComplementares.associate = (models) => {
-        AtividadesComplementares.belongsTo(models.Servidores);
+    AtividadeComplementar.associate = (models) => {
+        AtividadeComplementar.belongsTo(models.Servidor, { as : 'servidor' });
     };
-    return	AtividadesComplementares;
+    return	AtividadeComplementar;
 };

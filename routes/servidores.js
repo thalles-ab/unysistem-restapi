@@ -1,5 +1,5 @@
 module.exports = app => {
-    const Servidores = app.db.models.Servidores;
+    const Servidores = app.db.models.Servidor;
     const fileUpload = require('express-fileupload');
     app.use(fileUpload());
 
@@ -117,4 +117,5 @@ module.exports = app => {
                     });
                 });
         });
+
 };

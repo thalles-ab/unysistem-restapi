@@ -1,5 +1,5 @@
 module.exports = app => {
-    const model = app.db.models.InstituicoesAcademicas;
+    const model = app.db.models.InstituicaoAcademica;
 
     app.route("/instituicoes-academicas/nome/:nome")
         .get((req, res) => {

@@ -1,5 +1,5 @@
 module.exports	=	(sequelize,	DataType)	=>	{
-    const	FormacoesAcademicas	=	sequelize.define("FormacoesAcademicas",	{
+    const	FormacaoAcademica	=	sequelize.define("FormacaoAcademica",	{
         id:	{
             type:	DataType.INTEGER,
             primaryKey:	true,
@@ -19,16 +19,16 @@ module.exports	=	(sequelize,	DataType)	=>	{
             allowNull:	false,
             defaultValue:	false
         },
-        nivel:	{
+        nivel:	{ 
             type:	DataType.INTEGER,
             allowNull:	false
         }
-    });
+    },{freezeTableName: true});
 
-    FormacoesAcademicas.associate =	(models) => {
-        FormacoesAcademicas.belongsTo(models.Servidores);
-        FormacoesAcademicas.belongsTo(models.InstituicoesAcademicas);
+    FormacaoAcademica.associate =	(models) => {
+        FormacaoAcademica.belongsTo(models.Servidor, { as : 'servidor' });
+        FormacaoAcademica.belongsTo(models.InstituicaoAcademica, { as : 'instituicaoAcademica' });
     };
 
-    return	FormacoesAcademicas;
+    return	FormacaoAcademica;
 };

@@ -1,5 +1,5 @@
 module.exports	=	(sequelize,	DataType)	=>	{
-    const	EnderecosInstituicoes	=	sequelize.define("EnderecosInstituicoes",	{
+    const	EnderecoInstituicao	=	sequelize.define("EnderecoInstituicao",	{
         id:	{
             type:	DataType.INTEGER,
             primaryKey:	true,
@@ -41,7 +41,7 @@ module.exports	=	(sequelize,	DataType)	=>	{
                 notEmpty:	true
             }
         }
-    });
+    },{freezeTableName: true});
 
-    return	EnderecosInstituicoes;
+    return	EnderecoInstituicao;
 };

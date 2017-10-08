@@ -1,5 +1,5 @@
 module.exports	=	(sequelize,	DataType)	=>	{
-    const	Docencias	=	sequelize.define("Docencias",	{
+    const	Docencia	=	sequelize.define("Docencia",	{
         id:	{
             type:	DataType.INTEGER,
             primaryKey:	true,
@@ -25,12 +25,12 @@ module.exports	=	(sequelize,	DataType)	=>	{
         local:	{
             type:	DataType.STRING
         }
-    });
+    },{freezeTableName: true});
 
-    Docencias.associate =	(models) => {
-        Docencias.belongsTo(models.Servidores);
-        Docencias.belongsTo(models.InstituicoesAcademicas);
+    Docencia.associate =	(models) => {
+        Docencia.belongsTo(models.Servidor, { as : 'servidor' });
+        Docencia.belongsTo(models.InstituicaoAcademica, { as : 'instituicaoAcademica' });
     };
 
-    return	Docencias;
+    return	Docencia;
 };

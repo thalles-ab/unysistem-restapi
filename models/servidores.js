@@ -1,12 +1,12 @@
 module.exports	=	(sequelize,	DataType)	=>	{
-    const Servidores = sequelize.define("Servidores",	{
+    const Servidor = sequelize.define("Servidor",	{
         id:	{
             type:	DataType.INTEGER,
             primaryKey:	true,
             autoIncrement:	true
         },
         foto: {
-             type:	DataType.BLOB('medium'),
+            type:	DataType.BLOB('medium'),
             allowNull:	true,
             get() {
                 var aux = this.getDataValue('foto');
@@ -66,7 +66,7 @@ module.exports	=	(sequelize,	DataType)	=>	{
                 notEmpty:	true
             }
         }
-    });
+    },{freezeTableName: true});
 
-    return	Servidores;
+    return	Servidor;
 };

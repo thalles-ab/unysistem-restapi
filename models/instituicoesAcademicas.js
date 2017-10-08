@@ -1,5 +1,5 @@
 module.exports	=	(sequelize,	DataType)	=>	{
-    const	InstituicoesAcademicas	=	sequelize.define("InstituicoesAcademicas",	{
+    const	InstituicaoAcademica	=	sequelize.define("InstituicaoAcademica",	{
         id:	{
             type:	DataType.INTEGER,
             primaryKey:	true,
@@ -12,11 +12,7 @@ module.exports	=	(sequelize,	DataType)	=>	{
                 notEmpty:	true
             }
         }
-    });
+    },{freezeTableName: true});
 
-    InstituicoesAcademicas.associate = (models)	=>	{
-        InstituicoesAcademicas.belongsTo(models.EnderecosInstituicoesAcademicas);
-    };
-
-    return	InstituicoesAcademicas;
+    return	InstituicaoAcademica;
 };

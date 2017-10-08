@@ -1,5 +1,5 @@
 module.exports	=	(sequelize,	DataType)	=>	{
-    const	Funcoes	=	sequelize.define("Funcoes",	{
+    const Funcao = sequelize.define("Funcao",	{
         id:	{
             type:	DataType.INTEGER,
             primaryKey:	true,
@@ -29,11 +29,11 @@ module.exports	=	(sequelize,	DataType)	=>	{
                 notEmpty:	false
             }
         }
-    });
+    },{freezeTableName: true});
 
-    Funcoes.associate =	(models) => {
-        Funcoes.belongsTo(models.Servidores);
+    Funcao.associate =	(models) => {
+        Funcao.belongsTo(models.Servidor, { as : 'servidor' });
     };
 
-    return	Funcoes;
+    return	Funcao;
 };

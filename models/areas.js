@@ -1,5 +1,5 @@
 module.exports	=	(sequelize,	DataType)	=>	{
-    const	Areas	=	sequelize.define("Areas",	{
+    const Area	=	sequelize.define("Area",	{
         id:	{
             type:	DataType.INTEGER,
             primaryKey:	true,
@@ -12,11 +12,11 @@ module.exports	=	(sequelize,	DataType)	=>	{
                 notEmpty:	true
             }
         }
-    });
+    },{freezeTableName: true});
 
-    Areas.associate = (models)	=>	{
-        Areas.belongsTo(models.Cargos);
+    Area.associate = (models)	=>	{
+        Area.belongsTo(models.Cargo, { as : 'cargo'});
     };
 
-    return	Areas;
+    return	Area;
 };

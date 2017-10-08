@@ -1,5 +1,5 @@
 module.exports	=	(sequelize,	DataType)	=>	{
-    const	Nacionalidades	=	sequelize.define("Nacionalidades",	{
+    const Nacionalidade	=	sequelize.define("Nacionalidade",	{
         id:	{
             type:	DataType.INTEGER,
             primaryKey:	true,
@@ -19,7 +19,7 @@ module.exports	=	(sequelize,	DataType)	=>	{
                 notEmpty:	true
             }
         }
-    });
+    },{freezeTableName: true});
 
-    return	Nacionalidades;
+    return	Nacionalidade;
 };

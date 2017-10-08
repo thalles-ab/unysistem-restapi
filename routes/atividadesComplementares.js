@@ -1,5 +1,5 @@
 module.exports = app => {
-    const AtividadesComplementares = app.db.models.AtividadesComplementares;
+    const AtividadesComplementares = app.db.models.AtividadeComplementar;
 
     app.route("/atividades-complementares")
         /*.get((req, res) => {

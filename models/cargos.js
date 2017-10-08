@@ -1,5 +1,5 @@
 module.exports	=	(sequelize,	DataType)	=>	{
-    const	Cargos	=	sequelize.define("Cargos",	{
+    const	Cargo	=	sequelize.define("Cargo",	{
         id:	{
             type:	DataType.INTEGER,
             primaryKey:	true,
@@ -22,12 +22,12 @@ module.exports	=	(sequelize,	DataType)	=>	{
             allowNull:	false,
             defaultValue:	false
         }
-    });
+    },{freezeTableName: true});
 
-    Cargos.associate = (models)	=>	{
-        Cargos.belongsTo(models.Servidores);
+    Cargo.associate = (models)	=>	{
+        Cargo.belongsTo(models.Servidor, { as : 'servidor' });
     };
 
 
-    return	Cargos;
+    return	Cargo;
 };
