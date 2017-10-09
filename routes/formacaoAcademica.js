@@ -61,7 +61,7 @@ module.exports = app => {
         .get((req, res) => {
             FormacaoAcademica.findAll({
                     where: {
-                        servidore_id: req.params.idServidor
+                        servidor_id: req.params.idServidor
                     },
                     include : [{ model : app.db.models.InstituicoesAcademicas, attributes: ['id', 'nome'] }]
                 }).then(result => res.json(result))

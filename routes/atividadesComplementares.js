@@ -57,7 +57,7 @@ module.exports = app => {
         .get((req, res) => {
             AtividadesComplementares.findAll({
                     where: {
-                        servidore_id: req.params.idServidor
+                        servidor_id: req.params.idServidor
                     }
                 }).then(result => res.json(result))
                 .catch(error => {
