@@ -63,7 +63,13 @@ module.exports = app => {
                     where: {
                         servidor_id: req.params.idServidor
                     },
-                    include : [{ model : app.db.models.InstituicoesAcademicas, attributes: ['id', 'nome'] }]
+                    include : [
+                        { 
+                            model : app.db.models.InstituicaoAcademica, 
+                            as : 'instituicaoAcademica',
+                            attributes: ['id', 'nome'] 
+                        }
+                    ]
                 }).then(result => res.json(result))
                 .catch(error => {
                     res.status(412).json({
