@@ -6,7 +6,7 @@ module.exports	=	(sequelize,	DataType)	=>	{
             autoIncrement:	true
         },
         curso:	{
-            type:	DataType.INTEGER,
+            type:	DataType.STRING,
             allowNull:	false
         },
         dataInicio:	{
@@ -19,10 +19,11 @@ module.exports	=	(sequelize,	DataType)	=>	{
             allowNull:	false,
             defaultValue:	false
         },
-        nivel:	{ 
-            type:	DataType.INTEGER,
-            allowNull:	false
-        }
+        nivel:	{
+            type     : DataType.ENUM,
+            allowNull: false,
+            values   : ['Superior', 'Fundamental', 'Médio']
+        },
     },{freezeTableName: true});
 
     FormacaoAcademica.associate =	(models) => {

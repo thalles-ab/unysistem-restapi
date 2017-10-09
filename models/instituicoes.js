@@ -11,7 +11,10 @@ module.exports	=	(sequelize,	DataType)	=>	{
             validate:	{
                 notEmpty:	true
             }
-        }
+        },
+        sigla:	{
+            type:	DataType.STRING
+        },
     },{freezeTableName: true});
 
     Instituicao.associate = (models)	=>	{

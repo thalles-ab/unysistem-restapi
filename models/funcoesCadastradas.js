@@ -1,29 +1,18 @@
 module.exports	=	(sequelize,	DataType)	=>	{
-    const	Tasks	=	sequelize.define("Tasks",	{
+    const model = sequelize.define("FuncaoCadastrada",	{
         id:	{
             type:	DataType.INTEGER,
             primaryKey:	true,
             autoIncrement:	true
         },
-        title:	{
+        nome:	{
             type:	DataType.STRING,
             allowNull:	false,
             validate:	{
                 notEmpty:	true
             }
-        },
-        done:	{
-            type:	DataType.BOOLEAN,
-            allowNull:	false,
-            defaultValue:	false
         }
-    });
+    },{freezeTableName: true});
 
-    Tasks.associate =  (models) => {
-
-    };
-
-    return	Tasks;
+    return	model;
 };
-
-

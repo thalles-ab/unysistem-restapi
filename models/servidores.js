@@ -29,15 +29,19 @@ module.exports	=	(sequelize,	DataType)	=>	{
             }
         },
         sexo:	{
-            type:	DataType.STRING,
-            allowNull:	false,
-            validate:	{
-                notEmpty:	true
-            }
+            type     : DataType.ENUM,
+            allowNull: false,
+            values   : ['Masculino', 'Feminino', 'Outro']
         },
         estadoCivil:	{
-            type:	DataType.STRING,
-            allowNull:	false
+            type     : DataType.ENUM,
+            allowNull: false,
+            values   : ['Casado', 'Solteiro', 'Divorciado', 'Viuvo']
+        }, 
+        tipoSanguineo:	{
+            type     : DataType.ENUM,
+            allowNull: false,
+            values   : ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
         },
         numeroFuncional:	{
             type:	DataType.INTEGER,
@@ -68,6 +72,10 @@ module.exports	=	(sequelize,	DataType)	=>	{
             }
         }
     },{freezeTableName: true});
+
+    Servidor.associate = (models)	=>	{
+        Servidor.belongsTo(models.Setor, { as : 'setor'});
+    };
 
     return	Servidor;
 };

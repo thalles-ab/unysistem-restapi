@@ -1,9 +1,9 @@
 module.exports	= app => {
     app.db.sequelize
         .authenticate()
-        //.sync({force : true})
+        //.sync()
         .then(() => {
-            console.log('banco atualizado');
+            console.log('conexão com banco efeutada');
         }).catch(error => {
             console.log('error db', error);
         }).done(() => {
