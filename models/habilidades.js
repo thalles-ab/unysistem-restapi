@@ -14,10 +14,7 @@ module.exports	=	(sequelize,	DataType)	=>	{
         },
         numRecomendacoes : {
             type:	DataType.INTEGER,
-            allowNull:	false,
-            validate:	{
-                notEmpty:	true
-            }
+            allowNull:	true
         },
     },{freezeTableName: true});
 
