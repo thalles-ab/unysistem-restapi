@@ -13,14 +13,14 @@ module.exports = (sequelize, DataType) => {
             }
         },
         tipo: {
-            type     : DataType.ENUM,
+            type: DataType.ENUM,
             allowNull: false,
-            values   : ['E-mail', 'Telefone']
+            values: ['E-mail', 'Telefone']
         }
-    },{freezeTableName: true});
+    }, { freezeTableName: true });
 
     Contato.associate = (models) => {
-        Contato.belongsTo(models.Servidor, { as : 'servidor' });
+        Contato.belongsTo(models.Servidor, { as: 'servidor' });
     };
 
     return Contato;

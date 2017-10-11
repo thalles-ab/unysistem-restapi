@@ -38,15 +38,15 @@ module.exports = app => {
         })
         .put((req, res) => {
             Servidores.update({
-                    nome: req.body.nome,
-                    dataNascimento: req.body.dataNascimento,
-                    sexo: req.body.sexo,
-                    estadoCivil: req.body.estadoCivil,
-                    numeroFuncional: req.body.numeroFuncional,
-                    estado: req.body.estado,
-                    cidade: req.body.cidade,
-                    nacionalidade: req.body.nacionalidade
-                }, {
+                nome: req.body.nome,
+                dataNascimento: req.body.dataNascimento,
+                sexo: req.body.sexo,
+                estadoCivil: req.body.estadoCivil,
+                numeroFuncional: req.body.numeroFuncional,
+                estado: req.body.estado,
+                cidade: req.body.cidade,
+                nacionalidade: req.body.nacionalidade
+            }, {
                     where: {
                         id: req.params.id
                     }
@@ -59,10 +59,10 @@ module.exports = app => {
         })
         .delete((req, res) => {
             Servidores.destroy({
-                    where: {
-                        id: req.params.id
-                    }
-                }).then(result => res.json(result))
+                where: {
+                    id: req.params.id
+                }
+            }).then(result => res.json(result))
                 .catch(error => {
                     res.status(412).json({
                         msg: error.message
@@ -78,24 +78,24 @@ module.exports = app => {
                 });
             }
             Servidores.findOne({
-                    where: {
-                        id: req.params.id
-                    }
-                }).then(result => {
-                    var data = 'data:' + req.files.foto.mimetype + ';base64,' + req.files.foto.data.toString("base64");
-                    Servidores.update({
-                            foto: data
-                        }, {
-                            where: {
-                                id: req.params.id
-                            }
-                        }).then(result => res.status(200).json())
-                        .catch(error => {
-                            res.status(412).json({
-                                msg: error.message
-                            });
+                where: {
+                    id: req.params.id
+                }
+            }).then(result => {
+                var data = 'data:' + req.files.foto.mimetype + ';base64,' + req.files.foto.data.toString("base64");
+                Servidores.update({
+                    foto: data
+                }, {
+                        where: {
+                            id: req.params.id
+                        }
+                    }).then(result => res.status(200).json())
+                    .catch(error => {
+                        res.status(412).json({
+                            msg: error.message
                         });
-                })
+                    });
+            })
                 .catch(error => {
                     res.status(412).json({
                         msg: error.message
@@ -107,22 +107,22 @@ module.exports = app => {
     app.route("/servidores/nome/:nome")
         .get((req, res) => {
             Servidores.findOne({
-                    where: {
-                        nome: req.params.nome
-                    }
-                }).then(result => res.json(result))
+                where: {
+                    nome: req.params.nome
+                }
+            }).then(result => res.json(result))
                 .catch(error => {
                     res.status(412).json({
                         msg: error.message
                     });
                 });
         });
-        
+
     app.route("/servidores/pesquisa")
         .get((req, res) => {
             console.log(req.query);
             app.routes.autoSearch(Servidores, req.query)
-            .then(result => res.json(result));
+                .then(result => res.json(result));
         });
 
 };

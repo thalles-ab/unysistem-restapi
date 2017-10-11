@@ -15,10 +15,10 @@ module.exports = (sequelize, DataType) => {
                 notEmpty: true
             }
         }
-    },{freezeTableName: true});
+    }, { freezeTableName: true });
 
     model.associate = (models) => {
-        model.belongsTo(models.Servidor, { as : 'servidor' });
+        model.belongsTo(models.Servidor, { as: 'servidor' });
     };
 
     return model;

@@ -14,11 +14,11 @@ module.exports = (sequelize, DataType) => {
             allowNull: false,
             defaultValue: false
         }
-    },{freezeTableName: true});
+    }, { freezeTableName: true });
 
     model.associate = (models) => {
-        model.belongsTo(models.Servidor, { as : 'servidor' });
-        model.belongsTo(models.Servidor, { as : 'criador' });
+        model.belongsTo(models.Servidor, { as: 'servidor' });
+        model.belongsTo(models.Servidor, { as: 'criador' });
     };
 
     return model;

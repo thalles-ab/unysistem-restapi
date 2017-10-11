@@ -1,25 +1,25 @@
-module.exports	=	(sequelize,	DataType)	=>	{
-    const Instituicao = sequelize.define("Instituicao",	{
-        id:	{
-            type:	DataType.INTEGER,
-            primaryKey:	true,
-            autoIncrement:	true
+module.exports = (sequelize, DataType) => {
+    const Instituicao = sequelize.define("Instituicao", {
+        id: {
+            type: DataType.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
         },
-        nome:	{
-            type:	DataType.STRING,
-            allowNull:	false,
-            validate:	{
-                notEmpty:	true
+        nome: {
+            type: DataType.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true
             }
         },
-        sigla:	{
-            type:	DataType.STRING
+        sigla: {
+            type: DataType.STRING
         },
-    },{freezeTableName: true});
+    }, { freezeTableName: true });
 
-    Instituicao.associate = (models)	=>	{
-        Instituicao.belongsTo(models.EnderecoInstituicao, { as : 'servidor' });
+    Instituicao.associate = (models) => {
+        Instituicao.belongsTo(models.EnderecoInstituicao, { as: 'servidor' });
     };
 
-    return	Instituicao;
+    return Instituicao;
 };

@@ -1,36 +1,36 @@
-module.exports	=	(sequelize,	DataType)	=>	{
-    const	Consultoria	=	sequelize.define("Consultoria",	{
-        id:	{
-            type:	DataType.INTEGER,
-            primaryKey:	true,
-            autoIncrement:	true
+module.exports = (sequelize, DataType) => {
+    const Consultoria = sequelize.define("Consultoria", {
+        id: {
+            type: DataType.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
         },
-        nome:	{
-            type:	DataType.STRING,
-            allowNull:	false,
-            validate:	{
-                notEmpty:	true
+        nome: {
+            type: DataType.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true
             }
         },
-        dataInicio:	{
-            type:	DataType.DATE,
-            allowNull:	false,
-            defaultValue:	false
+        dataInicio: {
+            type: DataType.DATE,
+            allowNull: false,
+            defaultValue: false
         },
-        dataFim:	{
-            type:	DataType.DATE,
-            allowNull:	false,
-            defaultValue:	false
+        dataFim: {
+            type: DataType.DATE,
+            allowNull: false,
+            defaultValue: false
         },
-        local:	{
-            type:	DataType.STRING
+        local: {
+            type: DataType.STRING
         }
-    },{freezeTableName: true});
+    }, { freezeTableName: true });
 
-    Consultoria.associate =	(models) => {
-        Consultoria.belongsTo(models.Servidor, { as : 'servidor' });
-        Consultoria.belongsTo(models.Instituicao, { as : 'instituicao' });
+    Consultoria.associate = (models) => {
+        Consultoria.belongsTo(models.Servidor, { as: 'servidor' });
+        Consultoria.belongsTo(models.Instituicao, { as: 'instituicao' });
     };
 
-    return	Consultoria;
+    return Consultoria;
 };

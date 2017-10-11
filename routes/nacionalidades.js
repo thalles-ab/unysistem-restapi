@@ -7,13 +7,13 @@ module.exports = app => {
                 attributes: ['id', 'paisNome'],
                 where: {
                     paisNome: {
-                        $like : "%"+req.params.nome+"%"
+                        $like: "%" + req.params.nome + "%"
                     }
                 }
             })
-            .then(result => res.json(result))
-            .catch(error => {
-                res.status(412).json({msg: error.message});
-            });
+                .then(result => res.json(result))
+                .catch(error => {
+                    res.status(412).json({ msg: error.message });
+                });
         });
 };

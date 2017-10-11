@@ -7,7 +7,7 @@ module.exports = app => {
                 attributes: ['id', 'nome'],
                 where: {
                     nome: {
-                        $like : "%"+req.params.nome+"%"
+                        $like: "%" + req.params.nome + "%"
                     }
                 },
                 limit: 10,
@@ -15,9 +15,9 @@ module.exports = app => {
                     ['nome', 'ASC']
                 ]
             })
-            .then(result => res.json(result))
-            .catch(error => {
-                res.status(412).json({msg: error.message});
-            });
+                .then(result => res.json(result))
+                .catch(error => {
+                    res.status(412).json({ msg: error.message });
+                });
         });
 };

@@ -1,51 +1,51 @@
-module.exports	=	(sequelize,	DataType)	=>	{
-    const	EnderecoServidor = sequelize.define("EnderecoServidor",	{
-        id:	{
-            type:	DataType.INTEGER,
-            primaryKey:	true,
-            autoIncrement:	true
+module.exports = (sequelize, DataType) => {
+    const EnderecoServidor = sequelize.define("EnderecoServidor", {
+        id: {
+            type: DataType.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
         },
-        rua:	{
-            type:	DataType.STRING,
-            allowNull:	false,
-            validate:	{
-                notEmpty:	true
+        rua: {
+            type: DataType.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true
             }
         },
-        estado:	{
-            type:	DataType.STRING,
-            allowNull:	false,
-            validate:	{
-                notEmpty:	true
+        estado: {
+            type: DataType.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true
             }
         },
-        cep:	{
-            type:	DataType.STRING,
-            allowNull:	false,
-            validate:	{
-                notEmpty:	true
+        cep: {
+            type: DataType.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true
             }
         },
-        numero:	{
-            type:	DataType.INTEGER,
-            allowNull:	false,
-            defaultValue:	false
+        numero: {
+            type: DataType.INTEGER,
+            allowNull: false,
+            defaultValue: false
         },
-        telefone:	{
-            type:	DataType.STRING
+        telefone: {
+            type: DataType.STRING
         },
-        cidade:	{
-            type:	DataType.STRING,
-            allowNull:	false,
-            validate:	{
-                notEmpty:	true
+        cidade: {
+            type: DataType.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true
             }
         }
-    },{freezeTableName: true});
+    }, { freezeTableName: true });
 
-    EnderecoServidor.associate = (models) =>	{
-        EnderecoServidor.belongsTo(models.Servidor, { as : 'servidor' });
+    EnderecoServidor.associate = (models) => {
+        EnderecoServidor.belongsTo(models.Servidor, { as: 'servidor' });
     };
 
-    return	EnderecoServidor;
+    return EnderecoServidor;
 };

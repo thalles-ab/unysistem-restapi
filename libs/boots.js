@@ -1,4 +1,4 @@
-module.exports	= app => {
+module.exports = app => {
     app.db.sequelize
         .authenticate()
         //.sync()
@@ -8,7 +8,7 @@ module.exports	= app => {
             console.log('error db', error);
         }).done(() => {
             app.listen(app.get("port"), () => {
-            console.log(`Talentos API - porta ${app.get("port")}`);
+                console.log(`Talentos API - porta ${app.get("port")}`);
+            });
         });
-    });
 };

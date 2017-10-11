@@ -1,25 +1,25 @@
-module.exports	=	(sequelize,	DataType)	=>	{
-    const Nacionalidade	=	sequelize.define("Nacionalidade",	{
-        id:	{
-            type:	DataType.INTEGER,
-            primaryKey:	true,
-            autoIncrement:	true
+module.exports = (sequelize, DataType) => {
+    const Nacionalidade = sequelize.define("Nacionalidade", {
+        id: {
+            type: DataType.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
         },
-        paisNome:	{
-            type:	DataType.STRING,
-            allowNull:	false,
-            validate:	{
-                notEmpty:	true
+        paisNome: {
+            type: DataType.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true
             }
         },
-        paisName:	{
-            type:	DataType.STRING,
-            allowNull:	false,
-            validate:	{
-                notEmpty:	true
+        paisName: {
+            type: DataType.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true
             }
         }
-    },{freezeTableName: true});
+    }, { freezeTableName: true });
 
-    return	Nacionalidade;
+    return Nacionalidade;
 };

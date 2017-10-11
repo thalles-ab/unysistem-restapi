@@ -1,5 +1,5 @@
 import passport from "passport";
-import {Strategy, ExtractJwt} from "passport-jwt";
+import { Strategy, ExtractJwt } from "passport-jwt";
 
 module.exports = app => {
     const cfg = app.libs.config;
@@ -8,21 +8,21 @@ module.exports = app => {
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
     };
 
-     const strategy = new Strategy(params, (payload, done) => {
-         return	done(null,	{
-             id:2,
-             email:	'thallesmweb@gmail.com'
-         });
+    const strategy = new Strategy(params, (payload, done) => {
+        return done(null, {
+            id: 2,
+            email: 'thallesmweb@gmail.com'
+        });
     });
 
-     passport.use(strategy);
+    passport.use(strategy);
 
-     return {
-         initialize: () => {
+    return {
+        initialize: () => {
             return passport.initialize();
-         },
-         authenticate: () => {
-             return passport.authenticate("jwt", cfg.jwtSession);
-         }
-     };
+        },
+        authenticate: () => {
+            return passport.authenticate("jwt", cfg.jwtSession);
+        }
+    };
 };

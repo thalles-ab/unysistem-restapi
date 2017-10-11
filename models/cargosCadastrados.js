@@ -12,7 +12,7 @@ module.exports = (sequelize, DataType) => {
                 notEmpty: true
             }
         }
-    },{freezeTableName: true});
+    }, { freezeTableName: true });
 
     return model;
 };

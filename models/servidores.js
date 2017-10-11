@@ -1,84 +1,84 @@
-module.exports	=	(sequelize,	DataType)	=>	{
-    const Servidor = sequelize.define("Servidor",	{
-        id:	{
-            type:	DataType.INTEGER,
-            primaryKey:	true,
-            autoIncrement:	true
+module.exports = (sequelize, DataType) => {
+    const Servidor = sequelize.define("Servidor", {
+        id: {
+            type: DataType.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
         },
         foto: {
-            type:	DataType.BLOB('medium'),
-            allowNull:	true,
+            type: DataType.BLOB('medium'),
+            allowNull: true,
             get() {
                 var aux = this.getDataValue('foto');
-                if(aux == null) return;
+                if (aux == null) return;
                 return aux.toString();
             }
         },
-        nome:	{
-            type:	DataType.STRING,
-            allowNull:	false,
-            validate:	{
-                notEmpty:	true
-            }
-        },
-        dataNascimento:	{
-            type:	DataType.DATE,
-            allowNull:	false,
-            validate:	{
-                notEmpty:	true
-            }
-        },
-        sexo:	{
-            type     : DataType.ENUM,
+        nome: {
+            type: DataType.STRING,
             allowNull: false,
-            values   : ['Masculino', 'Feminino', 'Outro']
+            validate: {
+                notEmpty: true
+            }
         },
-        estadoCivil:	{
-            type     : DataType.ENUM,
+        dataNascimento: {
+            type: DataType.DATE,
             allowNull: false,
-            values   : ['Casado', 'Solteiro', 'Divorciado', 'Viuvo']
-        }, 
-        tipoSanguineo:	{
-            type     : DataType.ENUM,
+            validate: {
+                notEmpty: true
+            }
+        },
+        sexo: {
+            type: DataType.ENUM,
             allowNull: false,
-            values   : ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
+            values: ['Masculino', 'Feminino', 'Outro']
         },
-        numeroFuncional:	{
-            type:	DataType.INTEGER,
-            allowNull:	false,
-            validate:	{
-                notEmpty:	true
+        estadoCivil: {
+            type: DataType.ENUM,
+            allowNull: false,
+            values: ['Casado', 'Solteiro', 'Divorciado', 'Viuvo']
+        },
+        tipoSanguineo: {
+            type: DataType.ENUM,
+            allowNull: false,
+            values: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
+        },
+        numeroFuncional: {
+            type: DataType.INTEGER,
+            allowNull: false,
+            validate: {
+                notEmpty: true
             }
         },
-        estado:	{
-            type:	DataType.STRING,
-            allowNull:	false,
-            validate:	{
-                notEmpty:	true
+        estado: {
+            type: DataType.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true
             }
         },
-        cidade:	{
-            type:	DataType.STRING,
-            allowNull:	false,
-            validate:	{
-                notEmpty:	true
+        cidade: {
+            type: DataType.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true
             }
         },
-        nacionalidade:	{
-            type:	DataType.STRING,
-            allowNull:	false,
-            validate:	{
-                notEmpty:	true
+        nacionalidade: {
+            type: DataType.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true
             }
         },
-        email:	{
-            type:	DataType.STRING
+        email: {
+            type: DataType.STRING
         },
-    },{freezeTableName: true});
+    }, { freezeTableName: true });
 
-    Servidor.associate = (models)	=>	{
-        Servidor.belongsTo(models.Setor, { as : 'setor'});
+    Servidor.associate = (models) => {
+        Servidor.belongsTo(models.Setor, { as: 'setor' });
     };
 
-    return	Servidor;
+    return Servidor;
 };

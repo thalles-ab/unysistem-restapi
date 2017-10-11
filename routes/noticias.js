@@ -7,23 +7,23 @@ const $ = require('jquery')(window);
 
 let info = {
     domain: "https://esesp.es.gov.br",
-    path : "/Noticias",
-    tagArea : "article.projection-page > ul[class!=\"pager\"]",
-    tagItem : "li",
-    tagImg : "article > div:first > div:first > a > img",
+    path: "/Noticias",
+    tagArea: "article.projection-page > ul[class!=\"pager\"]",
+    tagItem: "li",
+    tagImg: "article > div:first > div:first > a > img",
     tagBody: "article > div:first > div:last > p",
     tagHeader: "header > div.row > div",
-    tagDate : "div",
-    tagLink : "h1 > a"
+    tagDate: "div",
+    tagLink: "h1 > a"
 };
 
-module.exports = app =>{
+module.exports = app => {
 
     var buscarNoticias = () => {
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             var noticias = [];
 
-            var req = http.get(info.domain+info.path, (resExt) => {
+            var req = http.get(info.domain + info.path, (resExt) => {
 
                 var htmlOut = "";
                 resExt.on('data', (d) => {
@@ -35,11 +35,11 @@ module.exports = app =>{
                     var area = element.find(info.tagArea);
 
                     // AREA DA PAGINA ONDE ENCONTRA-SE AS POSTAGENS
-                    area.find(info.tagItem).each((idx, val) =>{
+                    area.find(info.tagItem).each((idx, val) => {
                         var noticia = {};
 
                         // TITULO DA POSTAGEM
-                        var header = $(val).find(info.tagHeader).filter(function(){
+                        var header = $(val).find(info.tagHeader).filter(function () {
                             return $.trim($(this).html()) !== "";
                         });
 
@@ -54,7 +54,7 @@ module.exports = app =>{
 
                         // CONTEUDO DA POSTAGEM
                         var content = $(val).find(info.tagBody);
-                        content.find('a[href="'+link.attr('href')+'"]').remove();
+                        content.find('a[href="' + link.attr('href') + '"]').remove();
 
                         noticia.conteudo = content.text();
 
@@ -73,7 +73,7 @@ module.exports = app =>{
     };
 
     var baixarImagemNoticia = (noticia) => {
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             var req = http.get(url, (resExt) => {
 
                 var htmlOut = "";
@@ -94,7 +94,7 @@ module.exports = app =>{
     };
 
     app.route("/noticias").get((req, res) => {
-        buscarNoticias().then(data =>{
+        buscarNoticias().then(data => {
             res.status(200).json(data);
         });
     });

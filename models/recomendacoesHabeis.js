@@ -5,11 +5,11 @@ module.exports = (sequelize, DataType) => {
             primaryKey: true,
             autoIncrement: true
         },
-    },{freezeTableName: true});
+    }, { freezeTableName: true });
 
     model.associate = (models) => {
-        model.belongsTo(models.Servidor, { as : 'servidor' });
-        model.belongsTo(models.Habilidade, { as : 'habilidade' });
+        model.belongsTo(models.Servidor, { as: 'servidor' });
+        model.belongsTo(models.Habilidade, { as: 'habilidade' });
     };
 
     return model;

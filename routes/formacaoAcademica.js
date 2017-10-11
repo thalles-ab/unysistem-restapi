@@ -16,10 +16,10 @@ module.exports = app => {
     app.route("/formacaoacademica/:id")
         .get((req, res) => {
             FormacaoAcademica.findOne({
-                    where: {
-                        id: req.params.id
-                    }
-                }).then(result => res.json(result))
+                where: {
+                    id: req.params.id
+                }
+            }).then(result => res.json(result))
                 .catch(error => {
                     res.status(412).json({
                         msg: error.message
@@ -28,10 +28,10 @@ module.exports = app => {
         })
         .delete((req, res) => {
             FormacaoAcademica.destroy({
-                    where: {
-                        id: req.params.id
-                    }
-                }).then(result => res.json(result))
+                where: {
+                    id: req.params.id
+                }
+            }).then(result => res.json(result))
                 .catch(error => {
                     res.status(412).json({
                         msg: error.message
@@ -40,12 +40,12 @@ module.exports = app => {
         })
         .put((req, res) => {
             FormacaoAcademica.update({
-                    curso: req.body.curso,
-                    dataInicio: req.body.dataInicio,
-                    dataFim: req.body.dataFim,
-                    nivel: req.body.nivel,
-                    instituicoes_academica_id: req.body.instituicoes_academica_id
-                }, {
+                curso: req.body.curso,
+                dataInicio: req.body.dataInicio,
+                dataFim: req.body.dataFim,
+                nivel: req.body.nivel,
+                instituicoes_academica_id: req.body.instituicoes_academica_id
+            }, {
                     where: {
                         id: req.params.id
                     }
@@ -60,17 +60,17 @@ module.exports = app => {
     app.route("/servidores/:idServidor/formacaoacademica")
         .get((req, res) => {
             FormacaoAcademica.findAll({
-                    where: {
-                        servidor_id: req.params.idServidor
-                    },
-                    include : [
-                        { 
-                            model : app.db.models.InstituicaoAcademica, 
-                            as : 'instituicaoAcademica',
-                            attributes: ['id', 'nome'] 
-                        }
-                    ]
-                }).then(result => res.json(result))
+                where: {
+                    servidor_id: req.params.idServidor
+                },
+                include: [
+                    {
+                        model: app.db.models.InstituicaoAcademica,
+                        as: 'instituicaoAcademica',
+                        attributes: ['id', 'nome']
+                    }
+                ]
+            }).then(result => res.json(result))
                 .catch(error => {
                     res.status(412).json({
                         msg: error.message
