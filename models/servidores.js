@@ -70,7 +70,10 @@ module.exports	=	(sequelize,	DataType)	=>	{
             validate:	{
                 notEmpty:	true
             }
-        }
+        },
+        email:	{
+            type:	DataType.STRING
+        },
     },{freezeTableName: true});
 
     Servidor.associate = (models)	=>	{
