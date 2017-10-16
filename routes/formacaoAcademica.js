@@ -1,11 +1,23 @@
 module.exports = app => {
     const FormacaoAcademica = app.db.models.FormacaoAcademica;
+    const modelCursos = app.db.models.CursoCadastrado;
 
     app.route("/formacaoacademica")
         .post((req, res) => {
-            console.log(req.body);
-            FormacaoAcademica.create(req.body)
-                .then(result => res.json(result))
+            var model = req.body;
+            
+            var curso = req.body.curso;
+            model.curso = curso.charAt(0).toUpperCase() + curso.slice(1).toLowerCase();
+            
+            FormacaoAcademica.create(model)
+                .then(result => {
+                    
+                    modelCursos.findOrCreate({
+                        where : { nome : model.curso }
+                    });
+
+                    res.json(result);
+                })
                 .catch(error => {
                     res.status(412).json({
                         msg: error.message
