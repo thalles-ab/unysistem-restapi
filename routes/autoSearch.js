@@ -2,6 +2,10 @@ module.exports = app => (resourceDb, reqQuery) => {
     return new Promise((resolve, reject) => {
         var search = app.routes.searchModel(reqQuery);
 
+        if(search.isEmpty()){
+            resolve([]);
+        }
+
         resourceDb
             .findAll({
                 attributes: search.select_fields(),

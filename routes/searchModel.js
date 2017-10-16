@@ -152,6 +152,10 @@ module.exports = app => (reqQuery) => {
             console.log(order);
 
             return order;
+        },
+
+        isEmpty(){
+            return !this.fields;
         }
     };
 
