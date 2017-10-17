@@ -5,14 +5,13 @@ module.exports = app => {
 
     app.route("/servidores")
         .get((req, res) => {
-            Servidores.findAll()
-                .then(result =>
-                    res.json(result))
-                .catch(error => {
-                    res.status(412).json({
-                        msg: error.message
-                    });
+            app.routes.autoSearch(Servidores, req.query)
+            .then(result => res.json(result))
+            .catch(error => {
+                res.status(412).json({
+                    msg: error.message
                 });
+            });
         })
         .post((req, res) => {
             Servidores.create(req.body)
@@ -116,13 +115,6 @@ module.exports = app => {
                         msg: error.message
                     });
                 });
-        });
-
-    app.route("/servidores/pesquisa")
-        .get((req, res) => {
-            console.log(req.query);
-            app.routes.autoSearch(Servidores, req.query)
-                .then(result => res.json(result));
         });
 
 };
