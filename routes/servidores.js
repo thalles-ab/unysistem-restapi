@@ -6,12 +6,12 @@ module.exports = app => {
     app.route("/servidores")
         .get((req, res) => {
             app.routes.autoSearch(Servidores, req.query)
-            .then(result => res.json(result))
-            .catch(error => {
-                res.status(412).json({
-                    msg: error.message
+                .then(result => res.json(result))
+                .catch(error => {
+                    res.status(412).json({
+                        msg: error.message
+                    });
                 });
-            });
         })
         .post((req, res) => {
             Servidores.create(req.body)
@@ -88,7 +88,7 @@ module.exports = app => {
                         where: {
                             id: req.params.id
                         }
-                    }).then(result => res.status(200).json())
+                    }).then(result => res.status(200).json({ foto: data }))
                     .catch(error => {
                         res.status(412).json({
                             msg: error.message
