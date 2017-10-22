@@ -3,6 +3,8 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const { window } = new JSDOM(`<!DOCTYPE html>`);
 const $ = require('jquery')(window);
+const fileUpload = require('express-fileupload');
+
 
 
 let info = {
@@ -18,6 +20,7 @@ let info = {
 };
 
 module.exports = app => {
+    app.use(fileUpload());
 
     var buscarNoticias = () => {
         return new Promise(function (resolve, reject) {
@@ -93,10 +96,73 @@ module.exports = app => {
         });
     };
 
-    app.route("/noticias").get((req, res) => {
+    app.route("/noticias-sege").get((req, res) => {
         buscarNoticias().then(data => {
             res.status(200).json(data);
         });
     });
 
-};
+
+    /** NOTICIAS CADASTRADAS */
+    let model = app.db.models.Noticia;
+    app.route("/noticias")
+        .post((req, res) =>{
+            model.create(req.body)
+            .then(result => res.json({id : result.id}))
+            .catch(error => {
+                res.status(412).json({ msg: error.message });
+            });
+        }).get((req, res) => {
+            app.routes.autoSearch(model, req.query)
+            .then(result => res.json(result))
+            .catch(error => {
+                res.status(412).json({
+                    msg: error.message
+                });
+            });
+        });
+
+    app.route("/noticias/:id(\\d+)/")
+        .get((req, res) => {
+            model.findOne({ where: { id: req.params.id } })
+            .then(result => res.json(result)).catch(error => {
+                res.status(412).json({
+                    msg: error.message
+                });
+            });
+        }).put((req, res) => {
+            model.update(req.body, { where: { id: req.params.id } })
+            .then(result => res.json(result))
+            .catch(error => {
+                res.status(412).json({ msg: error.message });
+            });
+        })
+        .delete((req, res) => {
+            model.destroy({ where: { id: req.params.id }})
+            .then(result => res.json(result))
+            .catch(error => {
+                res.status(412).json({ msg: error.message });
+            });
+        });
+
+    app.route("/noticias/:id/foto")
+        .put((req, res) =>{
+            if (!req.files) {
+                return res.status(412).json({ msg: "Nenhuma imagem selecionada" });
+            }
+            model.findOne({ where: { id: req.params.id } })
+            .then(result => {
+                var data = 'data:' + req.files.foto.mimetype + ';base64,' + req.files.foto.data.toString("base64");
+                
+                model.update({ foto: data }, { where: { id: req.params.id } })
+                .then(result => res.status(200).json({ foto: data }))
+                .catch(error => {
+                    res.status(412).json({
+                        msg: error.message
+                    });
+                });
+            })
+            .catch(error => { res.status(412).json({ msg: error.message }); });
+        });
+
+}

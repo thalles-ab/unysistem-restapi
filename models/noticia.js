@@ -13,17 +13,21 @@ module.exports = (sequelize, DataType) => {
             }
         },
         imgDestaque: {
-            type: DataType.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true
+            type: DataType.BLOB('medium'),
+            allowNull: true,
+            get() {
+                var aux = this.getDataValue('imgDestaque');
+                if (aux == null) return;
+                return aux.toString();
             }
         },
         conteudo: {
-            type: DataType.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true
+            type: DataType.BLOB('long'),
+            allowNull: true,
+            get() {
+                var aux = this.getDataValue('conteudo');
+                if (aux == null) return;
+                return aux.toString();
             }
         },
         expiraEm: {
