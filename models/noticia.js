@@ -14,7 +14,6 @@ module.exports = (sequelize, DataType) => {
         },
         imgDestaque: {
             type: DataType.BLOB('medium'),
-            allowNull: true,
             get() {
                 var aux = this.getDataValue('imgDestaque');
                 if (aux == null) return;

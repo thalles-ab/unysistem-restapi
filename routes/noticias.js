@@ -125,21 +125,27 @@ module.exports = app => {
     app.route("/noticias/:id(\\d+)/")
         .get((req, res) => {
             model.findOne({ where: { id: req.params.id } })
-            .then(result => res.json(result)).catch(error => {
+            .then(result => res.json(result))
+            .catch(error => {
                 res.status(412).json({
                     msg: error.message
                 });
             });
         }).put((req, res) => {
             model.update(req.body, { where: { id: req.params.id } })
-            .then(result => res.json(result))
+            .then(result => res.json({
+                id: result.id,
+                titulo: result.titulo,
+                conteudo: result.conteudo,
+                expiraEm : result.expiraEm
+            }))
             .catch(error => {
                 res.status(412).json({ msg: error.message });
             });
         })
         .delete((req, res) => {
             model.destroy({ where: { id: req.params.id }})
-            .then(result => res.json(result))
+            .then(result => res.json({result}))
             .catch(error => {
                 res.status(412).json({ msg: error.message });
             });
@@ -154,7 +160,7 @@ module.exports = app => {
             .then(result => {
                 var data = 'data:' + req.files.foto.mimetype + ';base64,' + req.files.foto.data.toString("base64");
                 
-                model.update({ foto: data }, { where: { id: req.params.id } })
+                model.update({ imgDestaque: data }, { where: { id: req.params.id } })
                 .then(result => res.status(200).json({ foto: data }))
                 .catch(error => {
                     res.status(412).json({
