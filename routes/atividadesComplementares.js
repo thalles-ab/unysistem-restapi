@@ -66,4 +66,10 @@ module.exports = app => {
                     });
                 });
         });
+
+    app.route("/atividades-complementares/pesquisa")
+        .get((req, res) => {
+            app.routes.autoSearch(AtividadesComplementares, req.query)
+                .then(result => res.json(result));
+        });
 };
