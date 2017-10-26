@@ -109,10 +109,13 @@ module.exports = app => (reqQuery) => {
             return includes;
         },
 
-        normalize_query(query) {
-            return query.replace(/%([a-f0-9]{2})/gi, function (f, m1) { // NORMALIZA A QUERY PARA UTF-8
-                return String.fromCharCode(parseInt(m1, 16));
-            });
+        normalize_query(query) { 
+            return query;
+            
+            //Nathalia: Esta função estava trollando os parâmetros dando replaces indevidos.
+            //return query.replace(/%([a-f0-9]{2})/gi, function (f, m1) { // NORMALIZA A QUERY PARA UTF-8
+               // return String.fromCharCode(parseInt(m1, 16));
+            //});
         },
 
         order_clause() {
