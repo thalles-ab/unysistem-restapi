@@ -28,6 +28,24 @@ module.exports = (sequelize, DataType) => {
             validate: {
                 notEmpty: false
             }
+        },
+        orgao: {
+            type: DataType.STRING,
+            allowNull: true,
+            validate: {
+                notEmpty: false
+            }
+        },
+        setor: {
+            type: DataType.STRING,
+            allowNull: true,
+            validate: {
+                notEmpty: false
+            }
+        },
+        atual: {
+            type: DataType.Boolean,
+            allowNull: false
         }
     }, { freezeTableName: true });
 

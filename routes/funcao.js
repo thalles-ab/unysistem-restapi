@@ -31,7 +31,10 @@ module.exports = app => {
                     nome: req.body.nome,
                     descricao: req.body.descricao,
                     dataInicio: req.body.dataInicio,
-                    dataFim: req.body.dataFim
+                    dataFim: req.body.dataFim,
+                    orgao: req.body.orgao,
+                    setor: req.body.setor,
+                    atual: req.body.atual
                 },
                 { where: { id: req.params.id } }
             ).then(result => res.json(result))

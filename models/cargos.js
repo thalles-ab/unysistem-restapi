@@ -5,12 +5,23 @@ module.exports = (sequelize, DataType) => {
             primaryKey: true,
             autoIncrement: true
         },
-        nome: {
+        cargo: {
             type: DataType.STRING,
             allowNull: false,
             validate: {
                 notEmpty: true
             }
+        },
+        orgao: {
+            type: DataType.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            }
+        },
+        atual: {
+            type: DataType.Boolean,
+            allowNull: false
         },
         dataInicio: {
             type: DataType.DATE,

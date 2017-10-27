@@ -13,6 +13,11 @@ module.exports = (sequelize, DataType) => {
             }
         },
         modalidade: {
+            type: DataType.ENUM,
+            allowNull: false,
+            values: ['Presencial', 'EAD', 'Semi-Presencial']
+        },
+        nomeCurso: {
             type: DataType.STRING,
             allowNull: false,
             validate: {
@@ -20,19 +25,19 @@ module.exports = (sequelize, DataType) => {
             }
         },
         cargaHoraria: {
-            type: DataType.INTEGER,
+            type: DataType.STRING,
             allowNull: false,
             validate: {
                 notEmpty: true
             }
         },
-        dataInicio: {
-            type: DataType.DATE,
+        anoInicio: {
+            type: DataType.INTEGER,
             allowNull: false,
             defaultValue: false
         },
-        dataFim: {
-            type: DataType.DATE,
+        anoFim: {
+            type: DataType.INTEGER,
             allowNull: false,
             defaultValue: false
         }
