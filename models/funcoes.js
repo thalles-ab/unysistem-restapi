@@ -44,7 +44,7 @@ module.exports = (sequelize, DataType) => {
             }
         },
         atual: {
-            type: DataType.Boolean,
+            type: DataType.BOOLEAN,
             allowNull: false
         }
     }, { freezeTableName: true });
