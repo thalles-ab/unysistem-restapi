@@ -76,4 +76,11 @@ module.exports = app => {
                     res.status(412).json({ msg: error.message });
                 });
         });
+
+
+        app.route("/habilidade")
+        .get((req, res) => {
+            app.routes.autoSearch(Habilidade, req.query)
+                .then(result => res.json(result));
+        });
 };

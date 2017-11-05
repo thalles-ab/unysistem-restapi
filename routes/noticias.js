@@ -4,11 +4,9 @@ const { JSDOM } = jsdom;
 const { window } = new JSDOM(`<!DOCTYPE html>`);
 const $ = require('jquery')(window);
 
-
-
-let info = {
+let infoESESP = {
     domain: "https://esesp.es.gov.br",
-    path: "/Noticias",
+    path: "/noticias",
     tagArea: "article.projection-page > ul[class!=\"pager\"]",
     tagItem: "li",
     tagImg: "article > div:first > div:first > a > img",
@@ -18,6 +16,20 @@ let info = {
     tagLink: "h1 > a"
 };
 
+
+let info = {
+    domain: "https://www.es.gov.br",
+    path: "/noticias",
+    tagArea: "article.projection-page > div > div > div > ul[class!=\"pager\"]",
+    tagItem: "li",
+    tagImg: "article > div:first > div:first > a > img",
+    tagBody: "article > div:first > div:last > div:last > div > p",
+    tagHeader: ".header-projection",
+    tagDate: ".published",
+    tagLink: "h4 > a"
+};
+
+
 module.exports = app => {
     var buscarNoticias = () => {
         return new Promise(function (resolve, reject) {
@@ -25,11 +37,13 @@ module.exports = app => {
 
             var req = http.get(info.domain + info.path, (resExt) => {
 
+                resExt.setEncoding('utf8');
                 var htmlOut = "";
                 resExt.on('data', (d) => {
                     htmlOut += d;
                 });
 
+                
                 resExt.on('end', () => {
                     var element = $(htmlOut).appendTo('body');
                     var area = element.find(info.tagArea);
@@ -44,7 +58,7 @@ module.exports = app => {
                         });
 
                         var link = header.find(info.tagLink);
-
+                        
                         noticia.titulo = link.html();
                         noticia.link = info.domain + link.attr('href');
                         noticia.data = header.find(info.tagDate).text();
@@ -59,7 +73,10 @@ module.exports = app => {
                         noticia.conteudo = content.text();
 
                         // imagem thumb
-                        noticia.imgSrc = info.domain + $(val).find(info.tagImg).attr('src');
+                        var imgSrc = $(val).find(info.tagImg).attr('src');
+                        if(imgSrc){
+                            noticia.imgSrc = info.domain + imgSrc;
+                        }
 
                         noticias.push(noticia);
                     });
