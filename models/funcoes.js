@@ -19,7 +19,7 @@ module.exports = (sequelize, DataType) => {
         },
         dataFim: {
             type: DataType.DATE,
-            allowNull: false,
+            allowNull: true,
             defaultValue: false
         },
         descricao: {
