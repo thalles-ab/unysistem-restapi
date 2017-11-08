@@ -29,13 +29,6 @@ module.exports = (sequelize, DataType) => {
                 return aux.toString();
             }
         },
-        expiraEm: {
-            type: DataType.DATE,
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
-        },
     }, { freezeTableName: true });
 
 
