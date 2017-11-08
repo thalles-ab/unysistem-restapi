@@ -43,7 +43,7 @@ module.exports = app => {
                     htmlOut += d;
                 });
 
-                
+
                 resExt.on('end', () => {
                     var element = $(htmlOut).appendTo('body');
                     var area = element.find(info.tagArea);
@@ -58,7 +58,7 @@ module.exports = app => {
                         });
 
                         var link = header.find(info.tagLink);
-                        
+
                         noticia.titulo = link.html();
                         noticia.link = info.domain + link.attr('href');
                         noticia.data = header.find(info.tagDate).text();
@@ -74,7 +74,7 @@ module.exports = app => {
 
                         // imagem thumb
                         var imgSrc = $(val).find(info.tagImg).attr('src');
-                        if(imgSrc){
+                        if (imgSrc) {
                             noticia.imgSrc = info.domain + imgSrc;
                         }
 
@@ -110,7 +110,7 @@ module.exports = app => {
         });
     };
 
-    app.route("/noticias-sege").get((req, res) => {
+    app.route("/noticias-externas").get((req, res) => {
         buscarNoticias().then(data => {
             res.status(200).json(data);
         });
