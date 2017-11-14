@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataType) => {
-    const Model = sequelize.define("Orgao", {
+    const Orgao = sequelize.define("Orgao", {
         id: {
             type: DataType.INTEGER,
             primaryKey: true,
@@ -22,5 +22,5 @@ module.exports = (sequelize, DataType) => {
     }, { freezeTableName: true });
 
 
-    return Model;
+    return Orgao;
 };
