@@ -58,8 +58,7 @@ module.exports = app => {
             Cargo.findAll({
                 where: {
                     servidor_id: req.params.idServidor
-                }//,
-                //include : [{ model : app.db.models.Cargos, attributes: ['id', 'nome'] }]
+                }
             }).then(result => res.json(result))
                 .catch(error => {
                     res.status(412).json({

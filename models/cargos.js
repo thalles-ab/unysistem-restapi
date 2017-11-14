@@ -12,13 +12,6 @@ module.exports = (sequelize, DataType) => {
                 notEmpty: true
             }
         },
-        orgao: {
-            type: DataType.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
-        },
         atual: {
             type: DataType.BOOLEAN,
             allowNull: false
@@ -37,6 +30,8 @@ module.exports = (sequelize, DataType) => {
 
     Cargo.associate = (models) => {
         Cargo.belongsTo(models.Servidor, { as: 'servidor' });
+        Cargo.belongsTo(models.Orgao, { as: 'orgao' });
+        Cargo.belongsTo(models.Setor, { as: 'setor' });
     };
 
 
