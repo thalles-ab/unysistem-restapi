@@ -166,7 +166,7 @@ module.exports = app => {
         });
 
     app.route("/noticias/:id/foto")
-        .put((req, res) => {
+        .post((req, res) => {
             if (!req.files) {
                 return res.status(412).json({ msg: "Nenhuma imagem selecionada" });
             }

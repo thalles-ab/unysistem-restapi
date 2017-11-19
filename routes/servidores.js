@@ -1,7 +1,5 @@
 module.exports = app => {
     const Servidores = app.db.models.Servidor;
-    const fileUpload = require('express-fileupload');
-    app.use(fileUpload());
 
     app.route("/servidores")
         .get((req, res) => {
