@@ -13,11 +13,7 @@ module.exports = (sequelize, DataType) => {
             }
         },
         sigla: {
-            type: DataType.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
+            type: DataType.STRING
         }
     }, { freezeTableName: true });
 
