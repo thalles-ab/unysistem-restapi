@@ -29,20 +29,6 @@ module.exports = (sequelize, DataType) => {
                 notEmpty: false
             }
         },
-        orgao: {
-            type: DataType.STRING,
-            allowNull: true,
-            validate: {
-                notEmpty: false
-            }
-        },
-        setor: {
-            type: DataType.STRING,
-            allowNull: true,
-            validate: {
-                notEmpty: false
-            }
-        },
         atual: {
             type: DataType.BOOLEAN,
             allowNull: false
@@ -51,6 +37,8 @@ module.exports = (sequelize, DataType) => {
 
     Funcao.associate = (models) => {
         Funcao.belongsTo(models.Servidor, { as: 'servidor' });
+        Funcao.belongsTo(models.Orgao, { as: 'orgao' });
+        Funcao.belongsTo(models.Setor, { as: 'setor' });
     };
 
     return Funcao;

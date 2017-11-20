@@ -19,7 +19,11 @@ module.exports = app => {
     app.route("/Cargo/:id")
         .get((req, res) => {
             Cargo.findOne({
-                where: { id: req.params.id }
+                where: { id: req.params.id },
+                include : [
+                    { model : app.db.models.Setor, attributes: ['id', 'nome'], as : 'setor' },
+                    { model : app.db.models.Orgao, attributes: ['id', 'nome', 'sigla'], as : 'orgao' }
+                ]
             }).then(result => res.json(result))
                 .catch(error => {
                     res.status(412).json({ msg: error.message });
@@ -29,10 +33,12 @@ module.exports = app => {
             Cargo.update(
                 {
                     cargo: req.body.cargo,
-                    orgao: req.body.orgao,
                     atual: req.body.atual,
                     funcao: req.body.funcao,
                     setor: req.body.setor,
+                    setor_id: req.body.setor_id,
+                    orgao: req.body.orgao,
+                    orgao_id: req.body.orgao_id,
                     dataInicio: req.body.dataInicio,
                     dataFim: req.body.dataFim
                 },
@@ -58,7 +64,11 @@ module.exports = app => {
             Cargo.findAll({
                 where: {
                     servidor_id: req.params.idServidor
-                }
+                },
+                include : [
+                    { model : app.db.models.Setor, attributes: ['id', 'nome'], as : 'setor' },
+                    { model : app.db.models.Orgao, attributes: ['id', 'nome', 'sigla'], as : 'orgao' }
+                ]
             }).then(result => res.json(result))
                 .catch(error => {
                     res.status(412).json({
