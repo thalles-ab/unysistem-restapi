@@ -77,11 +77,12 @@ module.exports = (sequelize, DataType) => {
     }, { freezeTableName: true });
 
     Servidor.associate = (models) => {
-        Servidor.belongsTo(models.Setor, { as: 'setor' });
-        Servidor.hasMany(models.Funcao, { as: 'funcao', foreignKey : "servidor_id" });
-        Servidor.hasMany(models.Cargo, { as: 'cargo', foreignKey : "servidor_id" });
-        Servidor.hasMany(models.FormacaoAcademica, { as: 'formacaoAcademica', foreignKey : "servidor_id" });
-        Servidor.hasMany(models.Habilidade, { as: 'habilidade', foreignKey : "servidor_id" });
+        Servidor.hasMany(models.Funcao, { as: 'funcao', foreignKey: "servidor_id" });
+        Servidor.hasMany(models.Cargo, { as: 'cargo', foreignKey: "servidor_id" });
+        Servidor.hasMany(models.FormacaoAcademica, { as: 'formacaoAcademica', foreignKey: "servidor_id" });
+        Servidor.hasMany(models.Habilidade, { as: 'habilidade', foreignKey: "servidor_id" });
+        Servidor.hasMany(models.AtividadeComplementar, { as: 'atividadeComplementar', foreignKey: 'servidor_id' });
+        Servidor.hasMany(models.Publicacao, { as: 'publicacao', foreignKey: 'servidor_id' });
     };
 
     return Servidor;
