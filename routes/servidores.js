@@ -77,7 +77,28 @@ module.exports = (app) => {
             Servidores.findOne({
                 where: {
                     id: req.params.id
-                }
+                },
+                include: [
+                    {
+                        model: app.db.models.Cargo, attributes: ['nome', 'dataInicio', 'dataFim'], as: 'cargo', include: [
+                            { model: app.db.models.Orgao, attributes: ['nome', 'sigla'], as: 'orgao' },
+                        ]
+                    },
+                    {
+                        model: app.db.models.Funcao, attributes: ['nome', 'descricao', 'dataInicio', 'dataFim'], as: 'funcao', include: [
+                            { model: app.db.models.Orgao, attributes: ['nome', 'sigla'], as: 'orgao' },
+                            { model: app.db.models.Setor, attributes: ['nome'], as: 'setor' },
+                        ]
+                    },
+                    {
+                        model: app.db.models.FormacaoAcademica, attributes: ['curso', 'nivel', 'dataInicio', 'dataFim'], as: 'formacaoAcademica', include: [
+                            { model: app.db.models.InstituicaoAcademica, attributes: ['nome'], as: 'instituicaoAcademica' }
+                        ]
+                    },
+                    { model: app.db.models.AtividadeComplementar, attributes: ['entidade', 'modalidade', 'anoFim', 'nomeCurso', 'cargaHoraria'], as: 'atividadeComplementar' },
+                    { model: app.db.models.Habilidade, attributes: ['nome', 'numRecomendacoes'], as: 'habilidade' },
+                    { model: app.db.models.Publicacao, attributes: ['titulo', 'local', 'ano', 'tipo'], as: 'publicacao' },
+                ]
             }).then(result => res.json(result)).catch(error => {
                 res.status(412).json({
                     msg: error.message
