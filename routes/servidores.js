@@ -1,4 +1,4 @@
-module.exports = app => {
+module.exports = (app) => {
     const Servidores = app.db.models.Servidor;
 
     app.route("/servidores")
@@ -21,6 +21,57 @@ module.exports = app => {
                 });
         });
 
+    //TODO: arruamar essa gambiarra!!!!
+     app.route("/servidores2")
+        .get((req, res) => {
+            console.log(req.query.nome);
+            console.log(req.query.instituicao);
+            console.log(req.query.cargo);
+            console.log(req.query.orgao);
+            console.log(req.query.setor);
+            console.log(req.query.teste);
+            
+            let queryInstituicao = { nome: {like: '%'+req.query.instituicao+'%'} };
+            if(req.query.instituicao.length <= 0)
+                queryInstituicao = {};
+                
+            let queryNome = {nome: {like: '%'+req.query.nome+'%'}};
+            if(req.query.nome.length <= 0)
+                queryNome = {};
+                
+            let queryCargo = { nome: {like: '%'+req.query.cargo+'%'} };
+            if(req.query.cargo.length <= 0)
+                queryCargo = {};
+                
+            let queryOrgao = { nome: {like: '%'+req.query.orgao+'%'} };
+            if(req.query.orgao.length <= 0)
+                queryOrgao = {};
+                
+            let querySetor = { nome: {like: '%'+req.query.setor+'%'} };
+            if(req.query.setor.length <= 0)
+                querySetor = {};
+            
+            Servidores.findAll({
+                include : [
+                    { model : app.db.models.Cargo, where: queryCargo, required:false, attributes: ['id', 'nome', 'dataInicio'], as : 'cargo', 
+                    include : [{ model : app.db.models.Orgao, where: queryOrgao, required:false, attributes: ['id', 'nome'], as : 'orgao' },
+                               { model : app.db.models.Setor, where: querySetor, required:false, attributes: ['id', 'nome'], as : 'setor' },
+                              ],
+                    order:[['$cargo.dataInicio$', 'DESC']]
+                    },
+                    { model : app.db.models.FormacaoAcademica, required:false, attributes: ['id', 'curso'], as : 'formacaoAcademica', 
+                    include : { model : app.db.models.InstituicaoAcademica, where: queryInstituicao, required:false, attributes: ['id', 'nome'], as : 'instituicaoAcademica' } },
+                    // { model : app.db.models.FormacaoAcademica, where: { nome: {like: '%'+req.query.instituicao+'%'} }, attributes: ['id', 'nome'], as : 'instituicao' },
+                    //{ model : app.db.models.Cargo.Orgao, attributes: ['id', 'nome', 'sigla'], as : 'orgao' }
+                ],
+                where: queryNome
+            }).then(result => res.json(result))
+                .catch(error => {
+                    res.status(412).json({ msg: error.message });
+                });
+        });
+        
+        
     app.route("/servidores/:id(\\d+)/")
         .get((req, res) => {
             Servidores.findOne({

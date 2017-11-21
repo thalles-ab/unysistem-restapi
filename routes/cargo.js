@@ -3,7 +3,12 @@ module.exports = app => {
 
     app.route("/Cargo")
         .get((req, res) => {
-            Cargo.findAll().then(result => res.json(result))
+            Cargo.findAll({
+                include : [
+                    { model : app.db.models.Setor, attributes: ['id', 'nome'], as : 'setor' },
+                    { model : app.db.models.Orgao, attributes: ['id', 'nome', 'sigla'], as : 'orgao' }
+                ]
+            }).then(result => res.json(result))
                 .catch(error => {
                     res.status(412).json({ msg: error.message });
                 });
