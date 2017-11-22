@@ -74,6 +74,10 @@ module.exports = (sequelize, DataType) => {
         email: {
             type: DataType.STRING
         },
+        admin: {
+            type: DataType.INTEGER,
+            allowNull: false,
+        },
     }, { freezeTableName: true });
 
     Servidor.associate = (models) => {
