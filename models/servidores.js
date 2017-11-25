@@ -72,6 +72,13 @@ module.exports = (sequelize, DataType) => {
             }
         },
         email: {
+            type: DataType.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            }
+        },
+        telefone: {
             type: DataType.STRING
         },
         admin: {
