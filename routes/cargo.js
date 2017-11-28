@@ -4,9 +4,9 @@ module.exports = app => {
     app.route("/Cargo")
         .get((req, res) => {
             Cargo.findAll({
-                include : [
-                    { model : app.db.models.Setor, attributes: ['id', 'nome'], as : 'setor' },
-                    { model : app.db.models.Orgao, attributes: ['id', 'nome', 'sigla'], as : 'orgao' }
+                include: [
+                    { model: app.db.models.Setor, attributes: ['id', 'nome'], as: 'setor' },
+                    { model: app.db.models.Orgao, attributes: ['id', 'nome', 'sigla'], as: 'orgao' }
                 ]
             }).then(result => res.json(result))
                 .catch(error => {
@@ -25,9 +25,9 @@ module.exports = app => {
         .get((req, res) => {
             Cargo.findOne({
                 where: { id: req.params.id },
-                include : [
-                    { model : app.db.models.Setor, attributes: ['id', 'nome'], as : 'setor' },
-                    { model : app.db.models.Orgao, attributes: ['id', 'nome', 'sigla'], as : 'orgao' }
+                include: [
+                    { model: app.db.models.Setor, attributes: ['id', 'nome'], as: 'setor' },
+                    { model: app.db.models.Orgao, attributes: ['id', 'nome', 'sigla'], as: 'orgao' }
                 ]
             }).then(result => res.json(result))
                 .catch(error => {
@@ -37,7 +37,7 @@ module.exports = app => {
         .put((req, res) => {
             Cargo.update(
                 {
-                    cargo: req.body.cargo,
+                    nome: req.body.nome,
                     atual: req.body.atual,
                     funcao: req.body.funcao,
                     setor: req.body.setor,
@@ -70,9 +70,9 @@ module.exports = app => {
                 where: {
                     servidor_id: req.params.idServidor
                 },
-                include : [
-                    { model : app.db.models.Setor, attributes: ['id', 'nome'], as : 'setor' },
-                    { model : app.db.models.Orgao, attributes: ['id', 'nome', 'sigla'], as : 'orgao' }
+                include: [
+                    { model: app.db.models.Setor, attributes: ['id', 'nome'], as: 'setor' },
+                    { model: app.db.models.Orgao, attributes: ['id', 'nome', 'sigla'], as: 'orgao' }
                 ]
             }).then(result => res.json(result))
                 .catch(error => {
