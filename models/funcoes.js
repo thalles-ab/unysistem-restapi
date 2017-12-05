@@ -37,8 +37,14 @@ module.exports = (sequelize, DataType) => {
 
     Funcao.associate = (models) => {
         Funcao.belongsTo(models.Servidor, { as: 'servidor' });
-        Funcao.belongsTo(models.Orgao, { as: 'orgao' });
-        Funcao.belongsTo(models.Setor, { as: 'setor' });
+        Funcao.belongsTo(models.Orgao, { as: 'orgaoFuncao', foreignKey: {
+    name: 'orgao_id',
+    allowNull: false
+  } });
+        Funcao.belongsTo(models.Setor, { as: 'setorFuncao', foreignKey: {
+    name: 'setor_id',
+    allowNull: false
+  } });
     };
 
     return Funcao;

@@ -21,8 +21,8 @@ module.exports = app => {
             Funcao.findOne({
                 where: { id: req.params.id },
                 include : [
-                    { model : app.db.models.Setor, attributes: ['id', 'nome'], as : 'setor' },
-                    { model : app.db.models.Orgao, attributes: ['id', 'nome', 'sigla'], as : 'orgao' }
+                    { model : app.db.models.Setor, attributes: ['id', 'nome'], as : 'setorFuncao' },
+                    { model : app.db.models.Orgao, attributes: ['id', 'nome', 'sigla'], as : 'orgaoFuncao' }
                 ] 
             }).then(result => res.json(result))
                 .catch(error => {
@@ -66,8 +66,8 @@ module.exports = app => {
                     servidor_id: req.params.idServidor
                 },
                 include : [
-                    { model : app.db.models.Setor, attributes: ['id', 'nome'], as : 'setor' },
-                    { model : app.db.models.Orgao, attributes: ['id', 'nome', 'sigla'], as : 'orgao' }
+                    { model : app.db.models.Setor, attributes: ['id', 'nome'], as : 'setorFuncao' },
+                    { model : app.db.models.Orgao, attributes: ['id', 'nome', 'sigla'], as : 'orgaoFuncao' }
                 ] 
             }).then(result => res.json(result))
                 .catch(error => {
