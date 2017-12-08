@@ -124,7 +124,7 @@ module.exports = app => {
                 });
         });
         
-            app.route("/servidores3/:id(\\d+)/")
+            app.route("/servidores3/:id(\\d+)/:idLogado(\\d+)/")
         .get((req, res) => {
 
             Servidores.findOne({ attributes: ['id', 'nome', 'dataNascimento', 'sexo', 'estadoCivil', 'tipoSanguineo', 'numeroFuncional', 'estado', 'cidade', 'nacionalidade',
@@ -147,7 +147,21 @@ module.exports = app => {
                             model: app.db.models.FormacaoAcademica, attributes: ['id', 'curso'], as: 'formacaoAcademica',
                                    include: { model: app.db.models.InstituicaoAcademica, attributes: ['id', 'nome'], as: 'instituicaoAcademica' }
                           },
-                          {model: app.db.models.Habilidade, attributes: ['id', 'nome', 'numRecomendacoes'], as: 'habilidade'},
+                          {model: app.db.models.Habilidade, 
+                          attributes: {
+                        include: [
+                            'id',
+                            'nome',
+                            [
+                                app.db.sequelize.literal('(SELECT COUNT(recomendacao.id) FROM Recomendacao as recomendacao WHERE recomendacao.habilidade_id = habilidade.id)'),
+                                'numRecomendacoes'
+                            ],
+                            [
+                                app.db.sequelize.literal('CASE WHEN (SELECT 1 FROM Recomendacao as recomendacao WHERE recomendacao.habilidade_id = habilidade.id and recomendacao.servidor_id = '+req.params.idLogado+') THEN 1 ELSE 0 END'),
+                                'recomendado'
+                            ]
+                        ]
+                    }, as: 'habilidade'},
                           { model: app.db.models.AtividadeComplementar, attributes: ['entidade', 'modalidade', 'anoFim', 'nomeCurso', 'cargaHoraria'], as: 'atividadeComplementar' },
                           { model: app.db.models.Publicacao, attributes: ['titulo', 'local', 'ano', 'tipo'], as: 'publicacao' }],
                 where: { id: req.params.id }

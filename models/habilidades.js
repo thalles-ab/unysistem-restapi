@@ -13,13 +13,16 @@ module.exports = (sequelize, DataType) => {
             }
         },
         numRecomendacoes: {
-            type: DataType.INTEGER,
-            allowNull: true
+            type: DataType.VIRTUAL(DataType.INTEGER)
+        },
+        recomendado: {
+            type: DataType.VIRTUAL(DataType.BOOLEAN)
         },
     }, { freezeTableName: true });
 
     model.associate = (models) => {
         model.belongsTo(models.Servidor, { as: 'servidor' });
+        model.hasMany(models.Recomendacao, { as: 'recomendacao', foreignKey: 'habilidade_id' });
     };
 
     return model;

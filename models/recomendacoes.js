@@ -5,20 +5,11 @@ module.exports = (sequelize, DataType) => {
             primaryKey: true,
             autoIncrement: true
         },
-        nota: {
-            type: DataType.INTEGER
-        },
-        descricao: {
-            type: DataType.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
-        }
     }, { freezeTableName: true });
 
     model.associate = (models) => {
         model.belongsTo(models.Servidor, { as: 'servidor' });
+        model.belongsTo(models.Habilidade, { as: 'habilidade' });
     };
 
     return model;

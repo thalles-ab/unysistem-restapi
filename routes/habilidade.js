@@ -1,13 +1,62 @@
 module.exports = app => {
     const Habilidade = app.db.models.Habilidade;
-
-    app.route("/servidores/:idServidor/habilidade")
+    const Recomendacao = app.db.models.Recomendacao;
+    const Servidor = app.db.models.Servidores;
+    
+    app.route("/habilidade/:idHabilidade/recomendacao/")
         .get((req, res) => {
-            Habilidade.findAll({
+            Recomendacao.findAll({
+                attributes:[],
+                include: [
+                    { model: app.db.models.Servidor, 
+                         attributes: ['id', 'foto', 'nome'], as: 'servidor' }
+                    ],
                     where: {
-                        servidor_id: req.params.idServidor
+                        habilidade_id: req.params.idHabilidade
                     }
                 }).then(result => res.json(result))
+                .catch(error => {
+                    res.status(412).json({
+                        msg: error.message
+                    });
+                });
+        });
+        
+    app.route("/habilidade/:idHabilidade/recomendacao/:idServidor")
+        .delete((req, res) => {
+            Recomendacao.destroy({
+                    where: {
+                        servidor_id: req.params.idServidor,
+                        habilidade_id: req.params.idHabilidade
+                    }
+                }).then(result => res.json(result))
+                .catch(error => {
+                    res.status(412).json({
+                        msg: error.message
+                    });
+                });
+        })
+        .post((req, res) => {
+            Recomendacao.findOne({
+                    where: {
+                        servidor_id: req.params.idServidor,
+                        habilidade_id: req.params.idHabilidade
+                    }
+                }).then(result => {
+                    if (result) {
+                       res.json(result);
+                    } else {
+                        Recomendacao.create({
+                                servidor_id: req.params.idServidor,
+                                habilidade_id: req.params.idHabilidade
+                            }).then(recomendacao => res.json(result))
+                            .catch(error => {
+                                res.status(412).json({
+                                    msg: error.message
+                                });
+                            });
+                    }
+                })
                 .catch(error => {
                     res.status(412).json({
                         msg: error.message
@@ -43,7 +92,6 @@ module.exports = app => {
                     msg: error.message
                 });
             });
-
 
         });
 
