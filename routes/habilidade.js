@@ -2,15 +2,38 @@ module.exports = app => {
     const Habilidade = app.db.models.Habilidade;
     const Recomendacao = app.db.models.Recomendacao;
     const Servidor = app.db.models.Servidores;
-    
+
+    app.route("/servidores/:idServidor/habilidade")
+        .get((req, res) => {
+            Habilidade.findAll({
+                    attributes: {
+                        include: [
+                             [
+                                app.db.sequelize.literal('(SELECT COUNT(recomendacao.id) FROM Recomendacao as recomendacao WHERE recomendacao.habilidade_id = Habilidade.id)'),
+                                'numRecomendacoes'
+                             ],
+                        ]
+                    },
+                    where: {
+                        servidor_id: req.params.idServidor
+                    }
+                }).then(result => res.json(result))
+                .catch(error => {
+                    res.status(412).json({
+                        msg: error.message
+                    });
+                });
+        });
+
     app.route("/habilidade/:idHabilidade/recomendacao/")
         .get((req, res) => {
             Recomendacao.findAll({
-                attributes:[],
-                include: [
-                    { model: app.db.models.Servidor, 
-                         attributes: ['id', 'foto', 'nome'], as: 'servidor' }
-                    ],
+                    attributes: [],
+                    include: [{
+                        model: app.db.models.Servidor,
+                        attributes: ['id', 'foto', 'nome'],
+                        as: 'servidor'
+                    }],
                     where: {
                         habilidade_id: req.params.idHabilidade
                     }
@@ -21,7 +44,7 @@ module.exports = app => {
                     });
                 });
         });
-        
+
     app.route("/habilidade/:idHabilidade/recomendacao/:idServidor")
         .delete((req, res) => {
             Recomendacao.destroy({
@@ -44,7 +67,7 @@ module.exports = app => {
                     }
                 }).then(result => {
                     if (result) {
-                       res.json(result);
+                        res.json(result);
                     } else {
                         Recomendacao.create({
                                 servidor_id: req.params.idServidor,
