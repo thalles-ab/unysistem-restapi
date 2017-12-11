@@ -23,10 +23,12 @@ module.exports = (sequelize, DataType) => {
             defaultValue: false
         },
         descricao: {
-            type: DataType.STRING,
+            type: DataType.BLOB('long'),
             allowNull: true,
-            validate: {
-                notEmpty: false
+            get() {
+                var aux = this.getDataValue('descricao');
+                if (aux == null) return;
+                return aux.toString();
             }
         },
         atual: {
@@ -37,14 +39,8 @@ module.exports = (sequelize, DataType) => {
 
     Funcao.associate = (models) => {
         Funcao.belongsTo(models.Servidor, { as: 'servidor' });
-        Funcao.belongsTo(models.Orgao, { as: 'orgaoFuncao', foreignKey: {
-    name: 'orgao_id',
-    allowNull: false
-  } });
-        Funcao.belongsTo(models.Setor, { as: 'setorFuncao', foreignKey: {
-    name: 'setor_id',
-    allowNull: false
-  } });
+        Funcao.belongsTo(models.Orgao, { as: 'orgaoFuncao', foreignKey: { name: 'orgao_id', allowNull: false } });
+        Funcao.belongsTo(models.Setor, { as: 'setorFuncao', foreignKey: { name: 'setor_id', allowNull: false } });
     };
 
     return Funcao;
