@@ -32,12 +32,12 @@ module.exports = app => {
             console.log(req.query.habilidade);
             console.log(req.query.funcao);
             console.log('');
-            
+
             let queryNome = { nome: { like: '%' + req.query.nome + '%' } };
             if (req.query.nome.length <= 0)
                 queryNome = {};
 
-            /*Cargo*/  
+            /*Cargo*/
             let queryOrgao = { model: app.db.models.Orgao, where: { nome: { like: '%' + req.query.orgao + '%' } }, attributes: ['id', 'nome'], as: 'orgao' };
             if (req.query.orgao.length <= 0)
                 queryOrgao = { model: app.db.models.Orgao, required: false, attributes: ['id', 'nome'], as: 'orgao' };
@@ -45,8 +45,8 @@ module.exports = app => {
             let querySetor = { model: app.db.models.Setor, where: { nome: { like: '%' + req.query.setor + '%' } }, attributes: ['id', 'nome'], as: 'setor' };
             if (req.query.setor.length <= 0)
                 querySetor = { model: app.db.models.Setor, required: false, attributes: ['id', 'nome'], as: 'setor' };
-                
-            /*Funcao*/  
+
+            /*Funcao*/
             let queryOrgao2 = { model: app.db.models.Orgao, where: { nome: { like: '%' + req.query.orgao + '%' } }, attributes: ['id', 'nome'], as: 'orgaoFuncao' };
             if (req.query.orgao.length <= 0)
                 queryOrgao2 = { model: app.db.models.Orgao, required: false, attributes: ['id', 'nome'], as: 'orgaoFuncao' };
@@ -54,9 +54,9 @@ module.exports = app => {
             let querySetor2 = { model: app.db.models.Setor, where: { nome: { like: '%' + req.query.setor + '%' } }, attributes: ['id', 'nome'], as: 'setorFuncao' };
             if (req.query.setor.length <= 0)
                 querySetor2 = { model: app.db.models.Setor, required: false, attributes: ['id', 'nome'], as: 'setorFuncao' };
-              
-              
-              
+
+
+
             let queryCargo = {
                 model: app.db.models.Cargo, where: { nome: { like: '%' + req.query.cargo + '%' } }, attributes: ['id', 'nome', 'dataInicio'], as: 'cargo',
                 include: [queryOrgao,
@@ -73,8 +73,8 @@ module.exports = app => {
                     ],
                     order: [['$cargo.dataInicio$', 'DESC']]
                 };
-                
-        let queryFuncao = {
+
+            let queryFuncao = {
                 model: app.db.models.Funcao, where: { nome: { like: '%' + req.query.funcao + '%' } }, attributes: ['id', 'nome', 'dataInicio'], as: 'funcao',
                 include: [queryOrgao2,
                     querySetor2,
@@ -82,7 +82,7 @@ module.exports = app => {
                 order: [['funcao.dataInicio$', 'DESC']]
             };
 
-        if (req.query.funcao.length <= 0)
+            if (req.query.funcao.length <= 0)
                 queryFuncao = queryFuncao = {
                     model: app.db.models.Funcao, required: false, attributes: ['id', 'nome', 'dataInicio'], as: 'funcao',
                     include: [queryOrgao2,
@@ -100,7 +100,7 @@ module.exports = app => {
                     model: app.db.models.FormacaoAcademica, attributes: ['id', 'curso'], as: 'formacaoAcademica',
                     include: { model: app.db.models.InstituicaoAcademica, required: false, attributes: ['id', 'nome'], as: 'instituicaoAcademica' }
                 };
-                
+
             let queryHabilidade = {
                 model: app.db.models.Habilidade, attributes: ['id', 'nome', 'numRecomendacoes'], where: { nome: { like: '%' + req.query.habilidade + '%' } }, as: 'habilidade'
             };
@@ -111,11 +111,11 @@ module.exports = app => {
 
             Servidores.findAll({
                 attributes: ['id', 'nome', 'dataNascimento', 'sexo', 'estadoCivil', 'tipoSanguineo', 'numeroFuncional', 'estado', 'cidade', 'nacionalidade',
-                                              'email', 'telefone', 'admin', 'created_at', 'updated_at'],
+                    'email', 'telefone', 'admin', 'created_at', 'updated_at'],
                 include: [queryCargo,
-                          queryFuncao,
-                          queryInstituicao,
-                          queryHabilidade
+                    queryFuncao,
+                    queryInstituicao,
+                    queryHabilidade
                 ],
                 where: queryNome
             }).then(result => res.json(result))
@@ -123,32 +123,34 @@ module.exports = app => {
                     res.status(412).json({ msg: error.message });
                 });
         });
-        
-            app.route("/servidores3/:id(\\d+)/:idLogado(\\d+)/")
+
+    app.route("/servidores3/:id(\\d+)/:idLogado(\\d+)/")
         .get((req, res) => {
 
-            Servidores.findOne({ attributes: ['id', 'nome', 'dataNascimento', 'sexo', 'estadoCivil', 'tipoSanguineo', 'numeroFuncional', 'estado', 'cidade', 'nacionalidade',
-                                              'email', 'telefone', 'admin', 'created_at', 'updated_at'],
+            Servidores.findOne({
+                attributes: ['id', 'nome', 'dataNascimento', 'sexo', 'estadoCivil', 'tipoSanguineo', 'numeroFuncional', 'estado', 'cidade', 'nacionalidade',
+                    'email', 'telefone', 'admin', 'created_at', 'updated_at'],
                 include: [{
-                            model: app.db.models.Cargo, attributes: ['id', 'nome', 'dataInicio'], as: 'cargo',
-                                   include: [{ model: app.db.models.Orgao, attributes: ['id', 'nome', 'sigla'], as: 'orgao' },
-                                             { model: app.db.models.Setor, attributes: ['id', 'nome'], as: 'setor' },
-                                            ],
-                                   order: [['$cargo.dataInicio$', 'DESC']]
-                          },
-                          {
-                            model: app.db.models.Funcao, attributes: ['id', 'nome', 'dataInicio'], as: 'funcao',
-                                   include: [{ model: app.db.models.Orgao, attributes: ['id', 'nome', 'sigla'], as: 'orgaoFuncao' },
-                                             { model: app.db.models.Setor, attributes: ['id', 'nome'], as: 'setorFuncao' },
-                                            ],
-                                   order: [['funcao.dataInicio$', 'DESC']]
-                          },
-                          {
-                            model: app.db.models.FormacaoAcademica, attributes: ['id', 'curso'], as: 'formacaoAcademica',
-                                   include: { model: app.db.models.InstituicaoAcademica, attributes: ['id', 'nome'], as: 'instituicaoAcademica' }
-                          },
-                          {model: app.db.models.Habilidade, 
-                          attributes: {
+                    model: app.db.models.Cargo, attributes: ['id', 'nome', 'dataInicio'], as: 'cargo',
+                    include: [{ model: app.db.models.Orgao, attributes: ['id', 'nome', 'sigla'], as: 'orgao' },
+                    { model: app.db.models.Setor, attributes: ['id', 'nome'], as: 'setor' },
+                    ],
+                    order: [['$cargo.dataInicio$', 'DESC']]
+                },
+                {
+                    model: app.db.models.Funcao, attributes: ['id', 'nome', 'dataInicio'], as: 'funcao',
+                    include: [{ model: app.db.models.Orgao, attributes: ['id', 'nome', 'sigla'], as: 'orgaoFuncao' },
+                    { model: app.db.models.Setor, attributes: ['id', 'nome'], as: 'setorFuncao' },
+                    ],
+                    order: [['funcao.dataInicio$', 'DESC']]
+                },
+                {
+                    model: app.db.models.FormacaoAcademica, attributes: ['id', 'curso'], as: 'formacaoAcademica',
+                    include: { model: app.db.models.InstituicaoAcademica, attributes: ['id', 'nome'], as: 'instituicaoAcademica' }
+                },
+                {
+                    model: app.db.models.Habilidade,
+                    attributes: {
                         include: [
                             'id',
                             'nome',
@@ -157,13 +159,14 @@ module.exports = app => {
                                 'numRecomendacoes'
                             ],
                             [
-                                app.db.sequelize.literal('CASE WHEN (SELECT 1 FROM Recomendacao as recomendacao WHERE recomendacao.habilidade_id = habilidade.id and recomendacao.servidor_id = '+req.params.idLogado+') THEN 1 ELSE 0 END'),
+                                app.db.sequelize.literal('CASE WHEN (SELECT 1 FROM Recomendacao as recomendacao WHERE recomendacao.habilidade_id = habilidade.id and recomendacao.servidor_id = ' + req.params.idLogado + ') THEN 1 ELSE 0 END'),
                                 'recomendado'
                             ]
                         ]
-                    }, as: 'habilidade'},
-                          { model: app.db.models.AtividadeComplementar, attributes: ['entidade', 'modalidade', 'anoFim', 'nomeCurso', 'cargaHoraria'], as: 'atividadeComplementar' },
-                          { model: app.db.models.Publicacao, attributes: ['titulo', 'local', 'ano', 'tipo'], as: 'publicacao' }],
+                    }, as: 'habilidade'
+                },
+                { model: app.db.models.AtividadeComplementar, attributes: ['entidade', 'modalidade', 'anoFim', 'nomeCurso', 'cargaHoraria'], as: 'atividadeComplementar' },
+                { model: app.db.models.Publicacao, attributes: ['titulo', 'local', 'ano', 'tipo'], as: 'publicacao' }],
                 where: { id: req.params.id }
             }).then(result => res.json(result))
                 .catch(error => {
@@ -242,30 +245,22 @@ module.exports = app => {
 
     app.route("/servidores/:id/foto")
         .post((req, res) => {
-            if (!req.files) {
-                return res.status(412).json({
-                    msg: "Nenhuma imagem selecionada"
-                });
-            }
-            Servidores.findOne({
-                where: {
-                    id: req.params.id
-                }
-            }).then(result => {
-                var data = 'data:' + req.files.foto.mimetype + ';base64,' + req.files.foto.data.toString("base64");
-                Servidores.update({
-                    foto: data
-                }, {
-                        where: {
-                            id: req.params.id
-                        }
-                    }).then(result => res.status(200).json({ foto: data }))
-                    .catch(error => {
-                        res.status(412).json({
-                            msg: error.message
+            var data = req.body.foto;
+            Servidores.findOne({ where: { id: req.params.id } })
+                .then(result => {
+                    Servidores.update({
+                        foto: data
+                    }, {
+                            where: {
+                                id: req.params.id
+                            }
+                        }).then(result => res.status(200).json({ foto: data }))
+                        .catch(error => {
+                            res.status(412).json({
+                                msg: error.message
+                            });
                         });
-                    });
-            })
+                })
                 .catch(error => {
                     res.status(412).json({
                         msg: error.message
@@ -273,8 +268,8 @@ module.exports = app => {
                 });
 
         }).get((req, res) => {
-
-            Servidores.findOne({ attributes: ['foto', 'id'],
+            Servidores.findOne({
+                attributes: ['foto', 'id'],
                 where: { id: req.params.id }
             }).then(result => res.json(result))
                 .catch(error => {
