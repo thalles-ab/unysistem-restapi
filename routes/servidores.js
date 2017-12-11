@@ -33,18 +33,32 @@ module.exports = app => {
             console.log(req.query.funcao);
             console.log('');
             
-            let queryNome = { nome: { like: '%' + req.query.nome + '%' } };
+            let queryNome = "`Servidor`.`nome` like '%" + req.query.nome + "%'";// { nome: { like: '%' + req.query.nome + '%' } };
             if (req.query.nome.length <= 0)
-                queryNome = {};
+                queryNome = "";// {orgaoFuncao.id: { [Op.ne]: null};
 
             /*Cargo*/  
-            let queryOrgao = { model: app.db.models.Orgao, where: { nome: { like: '%' + req.query.orgao + '%' } }, attributes: ['id', 'nome'], as: 'orgao' };
+            let queryOrgao = { model: app.db.models.Orgao, where: { nome: { like: '%' + req.query.orgao + '%' }, id:{[app.db.sequelize.Op.ne]: null} }, attributes: ['id', 'nome'], as: 'orgao' };
             if (req.query.orgao.length <= 0)
                 queryOrgao = { model: app.db.models.Orgao, required: false, attributes: ['id', 'nome'], as: 'orgao' };
-
+            else
+            {
+                if(queryNome.length > 0)
+                    queryNome += " AND ";
+                
+                queryNome += " (`cargo->orgao`.`id` IS NOT NULL OR  `funcao`.`orgao_id` IS NOT NULL)";
+            }
+            
             let querySetor = { model: app.db.models.Setor, where: { nome: { like: '%' + req.query.setor + '%' } }, attributes: ['id', 'nome'], as: 'setor' };
             if (req.query.setor.length <= 0)
                 querySetor = { model: app.db.models.Setor, required: false, attributes: ['id', 'nome'], as: 'setor' };
+                        else
+            {
+                if(queryNome.length > 0)
+                    queryNome += " AND ";
+                
+                queryNome += " (`cargo->setor`.`id` IS NOT NULL OR  `funcao`.`setor_id` IS NOT NULL)";
+            }
                 
             /*Funcao*/  
             let queryOrgao2 = { model: app.db.models.Orgao, where: { nome: { like: '%' + req.query.orgao + '%' } }, attributes: ['id', 'nome'], as: 'orgaoFuncao' };
@@ -117,7 +131,7 @@ module.exports = app => {
                           queryInstituicao,
                           queryHabilidade
                 ],
-                where: queryNome
+                where: app.db.sequelize.literal(queryNome)
             }).then(result => res.json(result))
                 .catch(error => {
                     res.status(412).json({ msg: error.message });
