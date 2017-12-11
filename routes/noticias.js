@@ -121,6 +121,7 @@ module.exports = app => {
     let model = app.db.models.Noticia;
     app.route("/noticias")
         .post((req, res) => {
+            req.body.dataCriacao = new Date();
             model.create(req.body)
                 .then(result => res.json({ id: result.id }))
                 .catch(error => {
@@ -146,6 +147,7 @@ module.exports = app => {
                     });
                 });
         }).put((req, res) => {
+            req.body.dataAtualizacao = new Date();
             model.update(req.body, { where: { id: req.params.id } })
                 .then(result => res.json({
                     id: result.id,

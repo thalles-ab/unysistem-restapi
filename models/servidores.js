@@ -94,6 +94,7 @@ module.exports = (sequelize, DataType) => {
         Servidor.hasMany(models.Habilidade, { as: 'habilidade', foreignKey: "servidor_id" });
         Servidor.hasMany(models.AtividadeComplementar, { as: 'atividadeComplementar', foreignKey: 'servidor_id' });
         Servidor.hasMany(models.Publicacao, { as: 'publicacao', foreignKey: 'servidor_id' });
+        Servidor.hasMany(models.Noticia, { as: 'noticias', foreignKey: 'servidor_id' });
     };
 
     return Servidor;

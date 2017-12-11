@@ -29,8 +29,19 @@ module.exports = (sequelize, DataType) => {
                 return aux.toString();
             }
         },
+        dataCriacao: {
+            type: DataType.DATE,
+            allowNull: false
+        },
+        dataAtualizacao: {
+            type: DataType.DATE,
+            allowNull: true
+        }
     }, { freezeTableName: true });
 
+    Noticia.associate = (models) => {
+        Noticia.belongsTo(models.Servidor, { as: 'servidor' });
+    };
 
     return Noticia;
 };
