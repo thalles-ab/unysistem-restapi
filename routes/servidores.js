@@ -180,6 +180,7 @@ module.exports = app => {
                 },
                 { model: app.db.models.AtividadeComplementar, attributes: ['entidade', 'modalidade', 'anoFim', 'nomeCurso', 'cargaHoraria'], as: 'atividadeComplementar' },
                 { model: app.db.models.Publicacao, attributes: ['titulo', 'local', 'ano', 'tipo'], as: 'publicacao' }],
+                order: app.db.sequelize.literal('(SELECT COUNT(recomendacao.id) FROM Recomendacao as recomendacao WHERE recomendacao.habilidade_id = habilidade.id) DESC'),
                 where: { id: req.params.id }
             }).then(result => res.json(result))
                 .catch(error => {

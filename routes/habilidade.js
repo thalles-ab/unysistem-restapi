@@ -14,6 +14,7 @@ module.exports = app => {
                              ],
                         ]
                     },
+                    order: app.db.sequelize.literal('(SELECT COUNT(recomendacao.id) FROM Recomendacao as recomendacao WHERE recomendacao.habilidade_id = Habilidade.id) DESC'),
                     where: {
                         servidor_id: req.params.idServidor
                     }
